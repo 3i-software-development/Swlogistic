@@ -7,14 +7,16 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/Redux/store";
 import { baseURL } from "@/Utils/Axios";
 import { useEffect, useState, useCallback, useMemo } from "react";
-import { GetListGroupProduct } from "@/Apis/Product";
-import { Menu } from "@/Utils/type";
+import { GetListGroupProduct, GetListProductByGroup } from "@/Apis/Product";
+import { Menu, ProductType } from "@/Utils/type";
 import placeholderImg from "@/public/Image/komex-digital-logo_a39f6b3a05934b128b6b2e4e11ee89e1.webp";
 
 export default function Hero() {
   const [menu, setMenu] = useState<Menu[]>([]);
   const [selectedProductIndex, setSelectedProductIndex] = useState(0);
   const [showArrows, setShowArrows] = useState(false);
+  const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
+  const [menuProducts, setMenuProducts] = useState<{ [key: string]: ProductType[] }>({});
   const product = useSelector((state: RootState) => state.product.list);
   const products = useMemo(() => {
     return product?.slice(1, 8) || [];
@@ -37,6 +39,37 @@ export default function Hero() {
     }
   }, []);
 
+  const fetchMenuProducts = useCallback(async (menuCode: string) => {
+    try {
+      const response = await GetListProductByGroup(menuCode);
+      setMenuProducts(prev => ({
+        ...prev,
+        [menuCode]: response.data || []
+      }));
+    } catch (error) {
+      console.error("Failed to fetch menu products:", error);
+    }
+  }, []);
+
+  const handleMenuHover = (menuCode: string) => {
+    setHoveredMenu(menuCode);
+    if (!menuProducts[menuCode]) {
+      fetchMenuProducts(menuCode);
+    }
+  };
+
+  // Group products by brand
+  const getProductsByBrand = (products: ProductType[]) => {
+    return products.reduce((acc, product) => {
+      const brand = product.brand || 'Khác';
+      if (!acc[brand]) {
+        acc[brand] = [];
+      }
+      acc[brand].push(product);
+      return acc;
+    }, {} as { [key: string]: ProductType[] });
+  };
+
   useEffect(() => {
     fetchMenu();
   }, [fetchMenu]);
@@ -45,7 +78,7 @@ export default function Hero() {
     <main className="max-w-7xl mx-auto px-4 py-4">
       <div className="flex flex-row md:flex-row gap-4">
         {/* Sidebar categories */}
-        <div className="hidden md:block w-full md:w-1/5 overflow-hidden border-white">
+        <div className="hidden md:block w-full md:w-1/5 overflow-hidden border-white relative">
           <div className="bg-red-500 flex items-center gap-2 p-3 font-medium text-gray-700 border-b border-white rounded-t-md">
             <Image
               src="https://file.hstatic.net/200000713019/file/category_cc0fade29df84dbdbce905c303557980.png"
@@ -58,11 +91,15 @@ export default function Hero() {
           <ul className="bg-white rounded-b-md shadow-md border-white">
             {menu ? (
               menu?.map((category, index) => (
-                <Link key={index} href={`/Menu/${category?.Code}`}>
-                  <li className=" mt-2">
+                <li 
+                  key={index} 
+                  className="mt-2 relative"
+                  onMouseEnter={() => handleMenuHover(category.Code)}
+                  onMouseLeave={() => setHoveredMenu(null)}
+                >
+                  <Link href={`/Menu/${category?.Code}`}>
                     <div className="flex items-center justify-between p-3 hover:bg-blue-200 transition-colors duration-150 cursor-pointer">
                       <div className="flex items-center gap-3">
-                        {/* Có thể thêm icon dây nối muốn */}
                         <Image
                           src={category?.Description}
                           alt="item"
@@ -75,11 +112,51 @@ export default function Hero() {
                       </div>
                       <BsChevronRight className="h-4 w-4 text-blue-400" />
                     </div>
-                  </li>
-                </Link>
+                  </Link>
+                  
+                  {/* Hover Menu */}
+                  {hoveredMenu === category.Code && (
+                    <div className="absolute left-full top-0 w-[600px] bg-white shadow-lg rounded-md z-50 p-4">
+                      {menuProducts[category.Code] ? (
+                        <div className="grid grid-cols-2 gap-4">
+                          {Object.entries(getProductsByBrand(menuProducts[category.Code])).map(([brand, products]) => (
+                            <div key={brand} className="border-b pb-2">
+                              <h3 className="font-semibold text-blue-600 mb-2">{brand}</h3>
+                              <div className="grid grid-cols-2 gap-2">
+                                {products.slice(0, 4).map((product) => (
+                                  <Link 
+                                    key={product.id} 
+                                    href={`/Product/${product.productcode}`}
+                                    className="flex items-center gap-2 p-2 hover:bg-gray-50 rounded"
+                                  >
+                                    <Image
+                                      src={product.pathimg ? `${baseURL}${product.pathimg}` : placeholderImg}
+                                      alt={product.productname}
+                                      width={40}
+                                      height={40}
+                                      className="object-contain"
+                                    />
+                                    <div className="flex-1">
+                                      <p className="text-sm text-gray-700 line-clamp-1">{product.productname}</p>
+                                      <p className="text-sm font-semibold text-red-600">
+                                        {product.Price?.toLocaleString('vi-VN')}đ
+                                      </p>
+                                    </div>
+                                  </Link>
+                                ))}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="text-center text-gray-500 text-lg">OOO</div>
+                      )}
+                    </div>
+                  )}
+                </li>
               ))
             ) : (
-              <div>Ðang load menu</div>
+              <div>Đang load menu</div>
             )}
           </ul>
         </div>

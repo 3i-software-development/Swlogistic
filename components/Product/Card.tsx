@@ -3,9 +3,10 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
+  AiFillHeart,
   AiFillStar,
-  AiOutlineHeart,
-  AiOutlineShoppingCart,
+  // AiOutlineHeart,
+  AiOutlineShoppingCart
 } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { addItem } from "@/Redux/cart";
@@ -27,7 +28,7 @@ const CardProduct: React.FC<CardProps> = ({
   Price,
   pathimg,
   productCode,
-  discount = "31%",
+  discount = "31%"
 }) => {
   const fullPath = `${baseURL}${pathimg}`;
   const dispatch = useDispatch();
@@ -85,36 +86,41 @@ const CardProduct: React.FC<CardProps> = ({
           </div>
                   
         </Link>
-        <div className="flex items-center justify-between mt-auto">
-          <div className="flex">
-            {[1, 2, 3, 4, 5].map((star) => (
-              <AiFillStar key={star} className="w-4 h-4 text-yellow-400" />
-            ))}
-          </div>
-          <button className="flex items-center text-xs text-gray-500 hover:text-pink-500 transition">
-            <span className="mr-1">Yêu thích</span>
-            <AiOutlineHeart className="w-4 h-4" />
+        <div className="flex items-center justify-between mt-auto w-full">
+          <button
+            className="flex flex-col items-center gap-1 text-white text-[8px] font-semibold py-1 px-3 rounded-full bg-gradient-to-r from-fuchsia-500 to-pink-500 hover:from-fuchsia-600 hover:to-pink-600 transition-all shadow-md transform transition duration-300 hover:-translate-y-1"
+            onClick={() => {
+              dispatch(
+                addItem({
+                  id,
+                  productname,
+                  Price,
+                  pathimg,
+                  qualitiy: 1,
+                  maxQuantity: 99
+                })
+              );
+            }}
+          >
+            <AiOutlineShoppingCart size={14} />
+            <span>Mua ngay</span>
           </button>
+          <div className="flex items-center ">
+            <div className="flex items-center gap-1 mr-2">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <AiFillStar
+                  key={star}
+                  className="w-4 h-4 text-yellow-400 hover:text-pink-500 transition"
+                />
+              ))}
+            </div>
+            <button className="group flex items-center text-xs text-gray-500  transform transition duration-300 hover:-translate-y-1 hover:text-pink-500 transition">
+              <span className="mr-1">Yêu thích</span>
+              <AiFillHeart className="w-4 h-5 text-gray-500 transition group-hover:text-pink-500" />
+            </button>
+          </div>
+                  
         </div>
-        {/* Nút mua ngay */}
-        <button
-          className="mt-3 w-full flex items-center justify-center gap-2 text-white font-semibold text-lg py-2 rounded-full bg-gradient-to-r from-fuchsia-500 to-pink-500 hover:from-fuchsia-600 hover:to-pink-600 transition-all shadow-md"
-          onClick={() => {
-            dispatch(
-              addItem({
-                id,
-                productname,
-                Price,
-                pathimg,
-                qualitiy: 1,
-                maxQuantity: 99,
-              })
-            );
-          }}
-        >
-          <span className="text-xs md:text-sm font-bold">Mua ngay</span>
-          <AiOutlineShoppingCart size={15} className="text-2xl" />
-        </button>
       </div>
     </div>
   );
