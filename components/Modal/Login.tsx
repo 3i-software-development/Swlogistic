@@ -1,9 +1,9 @@
 "use client";
 
-import { LoginApi } from "@/Apis/User";
 import { setUser } from "@/Redux/auth";
 import { useAppDispatch } from "@/Redux/hook";
 import { useRef, useState } from "react";
+import axios from "axios";
 
 const ModalAuth = ({
   isOpen,
@@ -18,59 +18,72 @@ const ModalAuth = ({
   const [registerUsername, setRegisterUsername] = useState<string>("");
   const [registerEmail, setRegisterEmail] = useState<string>("");
   const [registerPassword, setRegisterPassword] = useState<string>("");
+  const [registerFullName, setRegisterFullName] = useState<string>("");
+  const [registerPhone, setRegisterPhone] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState(false);
+
   const dispatch = useAppDispatch();
   const modalRef = useRef<HTMLDivElement>(null);
-  if (!isOpen) return null;
 
   const handleLogin = async () => {
-    const res = await LoginApi({
-      username: loginUsername,
-      password: loginPassword,
-    });
-    console.log("res", res.Object);
-    dispatch(setUser(res.Object));
-    closeModal();
+    try {
+      setError("");
+      setLoading(true);
+      const response = await axios.post('https://localhost:7272/api/v1/auth/login', {
+        userName: loginUsername,
+        password: loginPassword
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      dispatch(setUser(response.data));
+      closeModal();
+    } catch (err: any) {
+      setError(err.response?.data || 'Đăng nhập thất bại');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleRegister = async () => {
-    console.log(
-      "Registering with:",
-      registerUsername,
-      registerEmail,
-      registerPassword
-    );
+    try {
+      setError("");
+      setLoading(true);
+      await axios.post('https://localhost:7272/api/v1/auth/register', {
+        userName: registerUsername,
+        password: registerPassword,
+        fullName: registerFullName,
+        email: registerEmail,
+        phone: registerPhone
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
 
-    setActiveTab("login");
+      // Switch to login tab after successful registration
+      setActiveTab("login");
+      setLoginUsername(registerUsername);
+      setLoginPassword(registerPassword);
+      setError("Đăng ký thành công! Vui lòng đăng nhập.");
+    } catch (err: any) {
+      setError(err.response?.data || 'Đăng ký thất bại');
+    } finally {
+      setLoading(false);
+    }
   };
-  // useEffect(() => {
-  //   const handleClickOutside = (event: MouseEvent) => {
-  //     if (
-  //       modalRef.current &&
-  //       !modalRef.current.contains(event.target as Node)
-  //     ) {
-  //       closeModal();
-  //     }
-  //   };
-
-  //   if (isOpen) {
-  //     document.addEventListener("mousedown", handleClickOutside);
-  //   }
-
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, [isOpen]);
 
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-400 bg-opacity-50">
-      {/* Modal Content */}
       <div
         ref={modalRef}
         className="bg-white rounded-2xl shadow-lg w-full max-w-md p-6 relative animate-fadeIn"
       >
-        {/* Close Button */}
         <button
           onClick={closeModal}
           className="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-2xl"
@@ -78,7 +91,6 @@ const ModalAuth = ({
           &times;
         </button>
 
-        {/* Tab Buttons */}
         <div className="flex justify-center mb-6">
           <button
             className={`px-4 py-2 font-semibold rounded-l-md ${
@@ -88,7 +100,7 @@ const ModalAuth = ({
             }`}
             onClick={() => setActiveTab("login")}
           >
-            Login
+            Đăng nhập
           </button>
           <button
             className={`px-4 py-2 font-semibold rounded-r-md ${
@@ -98,20 +110,25 @@ const ModalAuth = ({
             }`}
             onClick={() => setActiveTab("register")}
           >
-            Register
+            Đăng ký
           </button>
         </div>
 
-        {/* Form Area */}
+        {error && (
+          <div className={`text-sm text-center mb-4 ${error.includes('thành công') ? 'text-green-500' : 'text-red-500'}`}>
+            {error}
+          </div>
+        )}
+
         {activeTab === "login" ? (
           <div className="space-y-4">
             <div>
               <label className="block mb-1 text-sm font-medium text-gray-700">
-                Email
+                Tên đăng nhập
               </label>
               <input
-                type="username"
-                placeholder="Enter your username"
+                type="text"
+                placeholder="Nhập tên đăng nhập"
                 className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                 value={loginUsername}
                 onChange={(e) => setLoginUsername(e.target.value)}
@@ -119,11 +136,11 @@ const ModalAuth = ({
             </div>
             <div>
               <label className="block mb-1 text-sm font-medium text-gray-700">
-                Password
+                Mật khẩu
               </label>
               <input
                 type="password"
-                placeholder="Enter your password"
+                placeholder="Nhập mật khẩu"
                 className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                 value={loginPassword}
                 onChange={(e) => setLoginPassword(e.target.value)}
@@ -131,23 +148,40 @@ const ModalAuth = ({
             </div>
             <button
               onClick={handleLogin}
-              className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
+              disabled={loading}
+              className={`w-full text-white py-2 rounded-md transition ${
+                loading
+                  ? "bg-blue-400 cursor-not-allowed"
+                  : "bg-blue-600 hover:bg-blue-700"
+              }`}
             >
-              Login
+              {loading ? "Đang đăng nhập..." : "Đăng nhập"}
             </button>
           </div>
         ) : (
           <div className="space-y-4">
             <div>
               <label className="block mb-1 text-sm font-medium text-gray-700">
-                Username
+                Tên đăng nhập
               </label>
               <input
                 type="text"
-                placeholder="Choose a username"
+                placeholder="Chọn tên đăng nhập"
                 className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-400"
                 value={registerUsername}
                 onChange={(e) => setRegisterUsername(e.target.value)}
+              />
+            </div>
+            <div>
+              <label className="block mb-1 text-sm font-medium text-gray-700">
+                Họ và tên
+              </label>
+              <input
+                type="text"
+                placeholder="Nhập họ và tên"
+                className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+                value={registerFullName}
+                onChange={(e) => setRegisterFullName(e.target.value)}
               />
             </div>
             <div>
@@ -156,7 +190,7 @@ const ModalAuth = ({
               </label>
               <input
                 type="email"
-                placeholder="Enter your email"
+                placeholder="Nhập email"
                 className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-400"
                 value={registerEmail}
                 onChange={(e) => setRegisterEmail(e.target.value)}
@@ -164,22 +198,38 @@ const ModalAuth = ({
             </div>
             <div>
               <label className="block mb-1 text-sm font-medium text-gray-700">
-                Password
+                Số điện thoại
+              </label>
+              <input
+                type="tel"
+                placeholder="Nhập số điện thoại"
+                className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+                value={registerPhone}
+                onChange={(e) => setRegisterPhone(e.target.value)}
+              />
+            </div>
+            <div>
+              <label className="block mb-1 text-sm font-medium text-gray-700">
+                Mật khẩu
               </label>
               <input
                 type="password"
-                placeholder="Create a password"
+                placeholder="Tạo mật khẩu"
                 className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-400"
                 value={registerPassword}
                 onChange={(e) => setRegisterPassword(e.target.value)}
               />
             </div>
             <button
-              type="button" // Prevent default form submission
               onClick={handleRegister}
-              className="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition"
+              disabled={loading}
+              className={`w-full text-white py-2 rounded-md transition ${
+                loading
+                  ? "bg-green-400 cursor-not-allowed"
+                  : "bg-green-600 hover:bg-green-700"
+              }`}
             >
-              Register
+              {loading ? "Đang đăng ký..." : "Đăng ký"}
             </button>
           </div>
         )}

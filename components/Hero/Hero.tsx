@@ -7,9 +7,11 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/Redux/store";
 import { baseURL } from "@/Utils/Axios";
 import { useEffect, useState, useCallback, useMemo } from "react";
-import { GetListGroupProduct, GetListProductByGroup } from "@/Apis/Product";
+import { GetListGroupProduct, GetListProductByGroup, getReviewProducts } from "@/Apis/Product";
 import { Menu, ProductType } from "@/Utils/type";
 import placeholderImg from "@/public/Image/komex-digital-logo_a39f6b3a05934b128b6b2e4e11ee89e1.webp";
+import uiaCatMeme from '@/Asset/image/uia-cat-meme.gif';
+import { log } from "console";
 
 export default function Hero() {
   const [menu, setMenu] = useState<Menu[]>([]);
@@ -17,18 +19,37 @@ export default function Hero() {
   const [showArrows, setShowArrows] = useState(false);
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
   const [menuProducts, setMenuProducts] = useState<{ [key: string]: ProductType[] }>({});
+  const [previewProducts, setPreviewProducts] = useState<ProductType[]>([]);
+  const [loadingPreview, setLoadingPreview] = useState(true);
   const product = useSelector((state: RootState) => state.product.list);
   const products = useMemo(() => {
-    return product?.slice(1, 8) || [];
+    return product || [];
   }, [product]);
 
   useEffect(() => {
-    if (products.length < 6) return;
+    if (products.length === 0) return;
     const timer = setInterval(() => {
-      setSelectedProductIndex((current) => (current === 6 ? 0 : current + 1));
+      setSelectedProductIndex((current) => 
+        current === products.length - 1 ? 0 : current + 1
+      );
     }, 3000);
     return () => clearInterval(timer);
   }, [products]);
+
+  useEffect(() => {
+    const fetchPreview = async () => {
+      setLoadingPreview(true);
+      try {
+        const data = await getReviewProducts();
+        setPreviewProducts(data || []);
+      } catch (e) {
+        setPreviewProducts([]);
+      } finally {
+        setLoadingPreview(false);
+      }
+    };
+    fetchPreview();
+  }, []);
 
   const fetchMenu = useCallback(async () => {
     try {
@@ -44,7 +65,7 @@ export default function Hero() {
       const response = await GetListProductByGroup(menuCode);
       setMenuProducts(prev => ({
         ...prev,
-        [menuCode]: response.data || []
+        [menuCode]: response as unknown as ProductType[] || []
       }));
     } catch (error) {
       console.error("Failed to fetch menu products:", error);
@@ -74,6 +95,22 @@ export default function Hero() {
     fetchMenu();
   }, [fetchMenu]);
 
+  // Replace products in slideshow with previewProducts
+  if (loadingPreview) {
+    return (
+      <div className="flex justify-center items-center min-h-[400px]">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-600"></div>
+      </div>
+    );
+  }
+  if (!previewProducts || previewProducts.length === 0) {
+    return (
+      <div className="flex justify-center items-center min-h-[400px]">
+        <div>Không có sản phẩm nổi bật</div>
+      </div>
+    );
+  }
+  console.log(products);
   return (
     <main className="max-w-7xl mx-auto px-4 py-4">
       <div className="flex flex-row md:flex-row gap-4">
@@ -121,12 +158,12 @@ export default function Hero() {
                         <div className="grid grid-cols-2 gap-4">
                           {Object.entries(getProductsByBrand(menuProducts[category.Code])).map(([brand, products]) => (
                             <div key={brand} className="border-b pb-2">
-                              <h3 className="font-semibold text-blue-600 mb-2">{brand}</h3>
+                              <h3 className="font-semibold text-blue-600 mb-2">{brand === 'PRODUCT_BRAND20250428145438' ? 'Xiaomi' : brand}</h3>
                               <div className="grid grid-cols-2 gap-2">
                                 {products.slice(0, 4).map((product) => (
                                   <Link 
                                     key={product.id} 
-                                    href={`/Product/${product.productcode}`}
+                                    href={`/Product/${product.id}`}
                                     className="flex items-center gap-2 p-2 hover:bg-gray-50 rounded"
                                   >
                                     <Image
@@ -137,9 +174,14 @@ export default function Hero() {
                                       className="object-contain"
                                     />
                                     <div className="flex-1">
-                                      <p className="text-sm text-gray-700 line-clamp-1">{product.productname}</p>
+                                      <p className="text-sm text-gray-700 line-clamp-2">{product.productname}</p>
                                       <p className="text-sm font-semibold text-red-600">
-                                        {product.Price?.toLocaleString('vi-VN')}đ
+                                        {new Intl.NumberFormat('vi-VN', {
+                                          style: 'currency',
+                                          currency: 'VND',
+                                          minimumFractionDigits: 0,
+                                          maximumFractionDigits: 0
+                                        }).format(product.Price)}
                                       </p>
                                     </div>
                                   </Link>
@@ -149,7 +191,9 @@ export default function Hero() {
                           ))}
                         </div>
                       ) : (
-                        <div className="text-center text-gray-500 text-lg">OOO</div>
+                        <div className="flex items-center justify-center h-32">
+                          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-red-600"></div>
+                        </div>
                       )}
                     </div>
                   )}
@@ -167,7 +211,7 @@ export default function Hero() {
           <motion.div
             className="border border-black/20 rounded-md overflow-hidden mb-0 cursor-pointer"
             onClick={() =>
-              (window.location.href = `/Product/${products[selectedProductIndex].productcode}`)
+              (window.location.href = `/Product/${previewProducts[selectedProductIndex]?.id}`)
             }
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -193,7 +237,7 @@ export default function Hero() {
                     onClick={(e) => {
                       e.stopPropagation();
                       setSelectedProductIndex((prev) =>
-                        prev === 0 ? products.length - 1 : prev - 1
+                        prev === 0 ? previewProducts.length - 1 : prev - 1
                       );
                     }}
                     className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-blue-100 rounded-full p-2 shadow-md"
@@ -220,7 +264,7 @@ export default function Hero() {
 
                 <AnimatePresence mode="wait">
                   <motion.div
-                    key={products[selectedProductIndex]?.productcode}
+                    key={previewProducts[selectedProductIndex]?.id}
                     className="w-full h-full rounded-xl border-4 border-transparent shadow-2xl shadow-blue-200/70 ring-gray-300/20 overflow-hidden hover:cursor-pointer"
                     initial={{ opacity: 0, x: 40, scale: 0.98 }}
                     animate={{ opacity: 1, x: 0, scale: 1 }}
@@ -229,16 +273,16 @@ export default function Hero() {
                   >
                     <Image
                       src={
-                        products[selectedProductIndex]?.pathimg
-                          ? `${baseURL}${products[selectedProductIndex]?.pathimg}`
+                        previewProducts[selectedProductIndex]?.pathimg
+                          ? `${baseURL}${previewProducts[selectedProductIndex]?.pathimg}`
                           : placeholderImg
                       }
                       alt={
-                        products[selectedProductIndex]?.productname ||
+                        previewProducts[selectedProductIndex]?.productname ||
                         "Ảnh sản phẩm"
                       }
                       fill
-                      className="object-cover w-full h-full cursor-pointer"
+                      className="object-contain w-full h-full cursor-pointer"
                       priority
                     />
                   </motion.div>
@@ -250,7 +294,7 @@ export default function Hero() {
                     onClick={(e) => {
                       e.stopPropagation();
                       setSelectedProductIndex((prev) =>
-                        prev === products.length - 1 ? 0 : prev + 1
+                        prev === previewProducts.length - 1 ? 0 : prev + 1
                       );
                     }}
                     className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-blue-100 rounded-full p-2 shadow-md"
@@ -297,9 +341,9 @@ export default function Hero() {
 
                 {/* Product categories row - moved inside main banner */}
                 <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
-                  {products &&
-                    products.length > 0 &&
-                    products.map((_, index) => (
+                  {previewProducts &&
+                    previewProducts.length > 0 &&
+                    previewProducts.map((_, index) => (
                       <button
                         key={index}
                         onClick={(e) => {
@@ -323,19 +367,17 @@ export default function Hero() {
         </div>
 
         {/* Right banners */}
-        {/* w-full md:w-1/5 flex flex-col gap-4 border-white */}
-        <div className=" hidden md:flex md:flex-col md:gap-6 w-full md:w-1/5 border-white">
-          {/* iPad Air banner */}
-          {product && product?.length > 1 && (
+        <div className="hidden md:flex md:flex-col md:gap-6 w-full md:w-1/5 border-white">
+          {previewProducts && previewProducts?.length > 0 && (
             <div className="bg-pink-100 rounded-md p-4 flex flex-col items-center shadow-md border border-white">
-              <Link href={`/Product/${product[1]?.productcode}`}>
+              <Link href={`/Product/${previewProducts[0]?.id}`}>
                 <Image
                   src={
-                    product[1]?.pathimg
-                      ? `${baseURL}${product[1]?.pathimg}`
+                    previewProducts[0]?.pathimg
+                      ? `${baseURL}${previewProducts[0]?.pathimg}`
                       : placeholderImg
                   }
-                  alt={product[1]?.productname || "Ảnh sản phẩm"}
+                  alt={previewProducts[0]?.productname || "Ảnh sản phẩm"}
                   width={100}
                   height={100}
                   className="rounded-lg object-contain mb-2 cursor-pointer"
@@ -343,34 +385,16 @@ export default function Hero() {
               </Link>
             </div>
           )}
-          {/* Laptop/banner khác */}
-          {product && product?.length > 8 && (
+          {previewProducts && previewProducts?.length > 1 && (
             <div className="bg-green-100 rounded-md p-4 flex flex-col items-center shadow-md border border-white">
-              <Link href={`/Product/${product[8]?.productcode}`}>
+              <Link href={`/Product/${previewProducts[1]?.id}`}>
                 <Image
                   src={
-                    product[8]?.pathimg
-                      ? `${baseURL}${product[8]?.pathimg}`
+                    previewProducts[1]?.pathimg
+                      ? `${baseURL}${previewProducts[1]?.pathimg}`
                       : placeholderImg
                   }
-                  alt={product[8]?.productname || "Ảnh sản phẩm"}
-                  width={100}
-                  height={100}
-                  className="rounded-lg object-contain mb-2 cursor-pointer"
-                />
-              </Link>
-            </div>
-          )}
-          {product && product?.length > 8 && (
-            <div className="bg-green-100 rounded-md p-4 flex flex-col items-center shadow-md border border-white">
-              <Link href={`/Product/${product[9]?.productcode}`}>
-                <Image
-                  src={
-                    product[9]?.pathimg
-                      ? `${baseURL}${product[9]?.pathimg}`
-                      : placeholderImg
-                  }
-                  alt={product[9]?.productname || "Ảnh sản phẩm"}
+                  alt={previewProducts[1]?.productname || "Ảnh sản phẩm"}
                   width={100}
                   height={100}
                   className="rounded-lg object-contain mb-2 cursor-pointer"

@@ -17,12 +17,18 @@ const UpdateProfileModal = dynamic(
     ssr: false,
   }
 );
+
 const ProfileUI = () => {
-  const user: any = useAppSelector((state) => state.user.user);
-  if (!user) {
+  const userData: any = useAppSelector((state) => state.user.user);
+  if (!userData) {
     redirect("/");
   }
+
+  // Extract the nested user object
+  const user = userData.user;
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
+  
   const closeModal = () => {
     setIsModalOpen(false);
   };
@@ -31,44 +37,62 @@ const ProfileUI = () => {
     <div className="bg-gray-100 p-8 rounded-md max-w-3xl mx-auto my-8">
       <h2 className="text-3xl font-semibold mb-6">Thông tin tài khoản</h2>
       <div className="grid grid-cols-2 gap-y-4 text-gray-800">
-        <span>Họ và tên</span>
-        <span>{user?.FullName}</span>
+        <span className="font-medium">Họ và tên</span>
+        <span>{user?.fullName || 'Chưa cập nhật'}</span>
 
-        <span>Số điện thoại</span>
-        <span>{user?.Phone}</span>
+        <span className="font-medium">Số điện thoại</span>
+        <span>{user?.phone || 'Chưa cập nhật'}</span>
 
-        <span>Địa chỉ</span>
-        <span>{user?.Address}</span>
+        <span className="font-medium">Địa chỉ</span>
+        <span>{user?.address || 'Chưa cập nhật'}</span>
 
-        <span>Giới tính</span>
-        <span>{user?.Gender}</span>
+        <span className="font-medium">Giới tính</span>
+        <span>
+          {user?.gender === 'male' 
+            ? 'Nam' 
+            : user?.gender === 'female' 
+              ? 'Nữ' 
+              : 'Chưa cập nhật'}
+        </span>
 
-        <span>Ngày sinh</span>
-        <span>{user?.sBirthDay}</span>
+        <span className="font-medium">Ngày sinh</span>
+        <span>
+          {user?.birthDay 
+            ? new Date(user.birthDay).toLocaleDateString('vi-VN') 
+            : 'Chưa cập nhật'}
+        </span>
       </div>
       <div className="mt-4">
         <button
           onClick={() => setIsModalOpen(!isModalOpen)}
-          className="rounded-full px-6"
+          className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors"
         >
-          Cập nhật
+          Cập nhật thông tin
         </button>
       </div>
+
       {isModalOpen && (
         <UpdateProfileModal open={isModalOpen} onClose={closeModal} />
       )}
+      
       <h2 className="text-3xl font-semibold mt-10 mb-6">Thông tin đăng nhập</h2>
       <div className="grid grid-cols-2 gap-y-4 text-gray-800">
-        <span>Email</span>
-        <span>{user?.Email}</span>
+        <span className="font-medium">Email</span>
+        <span>{user?.email || 'Chưa cập nhật'}</span>
 
-        <span>Mật khẩu</span>
-        <span>*****</span>
+        <span className="font-medium">Tên đăng nhập</span>
+        <span>{user?.userName || 'Chưa cập nhật'}</span>
+
+        <span className="font-medium">Mật khẩu</span>
+        <span>••••••••</span>
       </div>
       <div className="mt-4">
-        <button className="rounded-full px-6">Cập nhật</button>
+        <button className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors">
+          Đổi mật khẩu
+        </button>
       </div>
     </div>
   );
 };
+
 export default ProfileUI;

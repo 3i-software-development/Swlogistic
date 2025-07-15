@@ -42,6 +42,14 @@ const Navbar = () => {
 
   // Cấu hình Fuse.js
   const fuse = useMemo(() => {
+    if (!productList || !Array.isArray(productList)) {
+      return new Fuse([], {
+        keys: ["productname"],
+        threshold: 0.4,
+        distance: 100,
+        minMatchCharLength: 2,
+      });
+    }
     return new Fuse(productList, {
       keys: ["productname"],
       threshold: 0.4,
@@ -57,12 +65,17 @@ const Navbar = () => {
         return;
       }
 
+      if (!productList || !Array.isArray(productList)) {
+        setSuggestions([]);
+        return;
+      }
+
       const results = fuse
         .search(text)
         .map((res: { item: ProductType }) => res.item);
       setSuggestions(results);
     },
-    [fuse]
+    [fuse, productList]
   );
 
   useEffect(() => {
@@ -344,11 +357,11 @@ const Navbar = () => {
                     </li>
                     <li>
                       <Link
-                        href="/Cart"
+                        href="/OrderHistory"
                         className="block px-4 py-2 hover:bg-gray-100"
-                        onClick={() => dispatch(setActiveItem('cart'))}
+                        onClick={() => dispatch(setActiveItem('orders'))}
                       >
-                        Lịch sử giao hàng
+                        Lịch sử đơn hàng
                       </Link>
                     </li>
                     <li>

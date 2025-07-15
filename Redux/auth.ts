@@ -16,8 +16,15 @@ const userSlice = createSlice({
     setUser: (state, action: PayloadAction<UserProfile>) => {
       state.user = action.payload;
     },
+    logout: (state) => {
+      state.user = null;
+      // Clear localStorage
+      if (typeof window !== 'undefined') {
+        localStorage.clear();
+      }
+    },
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, logout } = userSlice.actions;
 export default userSlice.reducer;
