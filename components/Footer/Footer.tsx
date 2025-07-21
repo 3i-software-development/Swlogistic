@@ -1,294 +1,146 @@
-import Image from "next/image";
-import React from "react";
-import LogoImage from "@/public/Image/komex-digital-logo_a39f6b3a05934b128b6b2e4e11ee89e1.webp";
-import notificationImage from "@/public/Image/dathongbao_48067cd02fae41b68bf0294777c39c94_compact.png";
-import zaloImage from "@/public/Image/zalo1.png";
-import faceImage from "@/public/Image/facebook.png";
-import tiktookImage from "@/public/Image/icon_left_icon_1.webp";
-import youtubeImage from "@/public/Image/youtube.png";
-import messImage from "@/public/Image/messenger-fb_8fcc524fbaad4b1195a150dc5e0575d7.webp";
-import codImage1 from "@/public/Image/2_anhicon1.webp";
-import codImage2 from "@/public/Image/2_anhicon2.webp";
+"use client";
+
+import { motion } from "framer-motion";
 
 const Footer = () => {
+  const offices = [
+    {
+      title: "HEAD OFFICE",
+      address: "60 Nguyen Anh Thu street, DaKao, District 1, Ho Chi Minh City",
+      phone: "028.628.74042 - 0909.40.0990 (Mr. Kayden)",
+      fax: "028.628.74043",
+      email: "paris@parislogistics.com.vn",
+      website: "http://www.parislogistics.com.vn",
+      hotline: "HOTLINE 24/7: 0909.40.0990",
+      description: "The switchboard received and resolved service quality reflections from customers and agents."
+    },
+    {
+      title: "DA NANG OFFICE",
+      address: "586 Nguyen Huu Tho street, district Hai Chau, Da Nang",
+      phone: "0937.206.960 (Mr. Victor)",
+      email: "danang@parislogistics.com.vn",
+      website: "http://www.parislogistics.com.vn"
+    },
+    {
+      title: "HA NOI OFFICE",
+      address: "No.9, 7 lane, Le Duc Tho street, My Dinh 2, Nam Tu Liem district, Ha Noi, Vietnam",
+      phone: "077.873.4175 (Mr. Hưng)",
+      email: "hanoi@parislogistics.com.vn",
+      website: "http://www.parislogistics.com.vn"
+    },
+    {
+      title: "CAN THO OFFICE",
+      address: "16E Nguyen De street, An Hoa, Ninh Kieu district, Can Tho city",
+      phone: "0777.319.503 (Mr. Paul)",
+      email: "cantho@parislogistics.com.vn",
+      website: "http://www.parislogistics.com.vn"
+    }
+  ];
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <footer className=" hidden md:block md:bg-black md:py-12 md:px-6 md:px-12 lg:px-24">
-      <div className="bg-black text-white px-4 py-3">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="text-lg uppercase font-semibold whitespace-nowrap">
-            ĐĂNG KÍ NHẬN TIN
-          </div>
-          <div className="flex items-center gap-0 w-full md:w-auto">
-            <input
-              type="email"
-              placeholder="Email"
-              className="pl-10 pr-4 py-2 w-full bg-white text-black rounded-l outline-none"
-            />
-            <button className="px-4 py-2 bg-red-600 hover:bg-red-700 transition rounded-r text-white font-semibold whitespace-nowrap">
-              <i className="fas fa-paper-plane mr-1"></i>
-              Đăng ký
-            </button>
-          </div>
-          <div className="flex items-center gap-2">
-            <a
-              href="https://zalo.me/0922306268"
-              className="bg-blue-500 p-1 rounded-md"
+    <footer className="bg-blue-900 text-white">
+      <div className="container mx-auto px-6 py-12">
+        {/* Office Information Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+          {offices.map((office, index) => (
+            <motion.div
+              key={office.title}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              className="space-y-4"
             >
-              <Image
-                src={zaloImage}
-                className="w-8 cursor-pointer"
-                alt="Zalo"
-              />
-            </a>
-            <a href="" className="bg-black p-1 rounded-md">
-              <Image
-                src={tiktookImage}
-                className="w-8 cursor-pointer"
-                alt="TikTok"
-              />
-            </a>
-            <a
-              href="https://www.facebook.com/komexdigital"
-              className="bg-blue-700 p-1 rounded-md"
-            >
-              <Image
-                src={faceImage}
-                className="w-8 cursor-pointer"
-                alt="Facebook"
-              />
-            </a>
-          </div>
-        </div>
-        <hr className="border-t border-white/30 mt-5" />
-      </div>
-      <div className="container mx-auto text-center md:text-left grid grid-cols-1 md:grid-cols-4 gap-8">
-        {/* Logo and Description */}
-        <div className="mb-8 md:mb-0">
-          <a href="#" className="flex items-center mb-4">
-            <Image
-              src={LogoImage}
-              alt="Logo"
-              height={50}
-              width={200}
-              className="w-32 mb-4"
-            />
-          </a>
-          <p className="mb-3 font-semibold uppercase text-white">
-            Công Ty Cổ Phần Komex Việt Nam
-          </p>
-          <ul className="space-y-2 text-white text-sm">
-            <li className="flex items-start gap-2">
-              📍{" "}
-              <span>
-                Địa chỉ: Thôn Thạch Lỗi, Xã Thanh Xuân, Huyện Sóc Sơn, Hà Nội
-              </span>
-            </li>
-            <li className="flex items-start gap-2">
-              📞 <span>1900 0267</span>
-            </li>
-            <li className="flex items-start gap-2">
-              ✉ <span>tmdt@komex.com.vn</span>
-            </li>
-            <li>MST: 0102675442</li>
-            <li>Cấp ngày: 11/03/2008</li>
-            <li>Nơi cấp: Phòng ĐKKD - Sở KH&ĐT TP Hà Nội</li>
-          </ul>
-          <a
-            href="http://online.gov.vn/Home/WebDetails/117272"
-            className="flex items-center mt-4"
-          >
-            <Image
-              src={notificationImage}
-              alt="Đã thông báo BCT"
-              width={100}
-              height={100}
-              className="mt-5 w-28"
-            />
-          </a>
+              {/* Office Title */}
+              <h3 className="text-lg font-bold uppercase border-b-2 border-yellow-400 pb-2">
+                {office.title}
+              </h3>
 
-          {/* <!-- Social icons floating left & right --> */}
-          <div className="fixed left-2 top-1/2 transform -translate-y-1/2 flex-col gap-4 hidden md:flex">
-            <a href="https://www.tiktok.com/@komex.digital" rel="nofollow">
-              <Image
-                src={tiktookImage}
-                className="w-8 cursor-pointer"
-                alt="TikTok"
-              />
-            </a>
-            <a href="https://www.facebook.com/komexdigital" rel="nofollow">
-              <Image
-                src={faceImage}
-                className="w-8 cursor-pointer"
-                alt="Facebook"
-              />
-            </a>
-            <a href="https://www.youtube.com/@komexdigital" rel="nofollow">
-              <Image
-                src={youtubeImage}
-                className="w-8 cursor-pointer"
-                alt="YouTube"
-              />
-            </a>
-          </div>
-          <div className="fixed right-2 top-1/2 transform -translate-y-1/2 flex-col gap-4 hidden md:flex">
-            <a href="https://www.messenger.com/t/komexdigital" rel="nofollow">
-              <Image
-                src={messImage}
-                className="w-8 cursor-pointer"
-                alt="Messenger"
-              />
-            </a>
-            <a href="https://zalo.me/0922306268" rel="nofollow">
-              <Image
-                src={zaloImage}
-                className="w-8 cursor-pointer"
-                alt="Zalo"
-              />
-            </a>
-          </div>
+              {/* Address */}
+              <div className="flex items-start space-x-2">
+                <svg className="w-4 h-4 text-yellow-400 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <p className="text-sm leading-relaxed">{office.address}</p>
+              </div>
+
+              {/* Phone */}
+              <div className="flex items-center space-x-2">
+                <svg className="w-4 h-4 text-yellow-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+                <p className="text-sm">Phone: {office.phone}</p>
+              </div>
+
+              {/* Fax (only for Head Office) */}
+              {office.fax && (
+                <div className="flex items-center space-x-2">
+                  <svg className="w-4 h-4 text-yellow-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                  <p className="text-sm">{office.fax}</p>
+                </div>
+              )}
+
+              {/* Email */}
+              <div className="flex items-center space-x-2">
+                <svg className="w-4 h-4 text-yellow-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                <p className="text-sm">{office.email}</p>
+              </div>
+
+              {/* Website */}
+              <div className="flex items-center space-x-2">
+                <svg className="w-4 h-4 text-yellow-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9m0 9c-5 0-9-4-9-9s4-9 9-9" />
+                </svg>
+                <p className="text-sm">{office.website}</p>
+              </div>
+
+              {/* Hotline (only for Head Office) */}
+              {office.hotline && (
+                <div className="pt-2">
+                  <p className="text-yellow-400 font-semibold text-base">{office.hotline}</p>
+                  <p className="text-sm mt-2 leading-relaxed">{office.description}</p>
+                </div>
+              )}
+            </motion.div>
+          ))}
         </div>
 
-        {/* Company Links */}
-        <div>
-          <h6 className="font-bold mb-4 uppercase text-white text-sm">
-            Danh mục nổi bật
-          </h6>
-          <ul className="space-y-2 text-white text-sm">
-            <li className="mb-2">
-              <a href="#" className="hover:text-red-500 transition">
-                Đang Khuyến Mãi
-              </a>
-            </li>
-            <li className="mb-2">
-              <a href="#" className="hover:text-red-500 transition">
-                Smart Tivi
-              </a>
-            </li>
-            <li className="mb-2">
-              <a href="#" className="hover:text-red-500 transition">
-                Thiết Bị Gia Dụng
-              </a>
-            </li>
-            <li className="mb-2">
-              <a href="#" className="hover:text-red-500 transition">
-                Robot Hút Bụi
-              </a>
-            </li>
-            <li className="mb-2">
-              <a href="#" className="hover:text-red-500 transition">
-                Lọc Không Khí
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-red-500 transition">
-                Quạt Thông Minh
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-red-500 transition">
-                Điện Lạnh
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-red-500 transition">
-                Camera Giám Sát
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-red-500 transition">
-                Thiết bị sức khỏe
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-red-500 transition">
-                Thiết Bị Tin Học
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        {/* Support Links */}
-        <div>
-          <h6 className="font-semibold text-white mb-4 uppercase">
-            Hỗ trợ khách hàng
-          </h6>
-          <ul className="text-white text-sm">
-            <li className="mb-2">
-              <a href="#" className="hover:text-red-500">
-                Hướng dẫn mua hàng
-              </a>
-            </li>
-            <li className="mb-2">
-              <a href="#" className="hover:text-red-500">
-                Chính Sách Bảo Hành
-              </a>
-            </li>
-            <li className="mb-2">
-              <a href="#" className="hover:text-red-500">
-                Chăm Sóc Khách Hàng
-              </a>
-            </li>
-            <li className="mb-2">
-              <a href="#" className="hover:text-red-500">
-                Chính sách kiểm hàng
-              </a>
-            </li>
-            <li className="mb-2">
-              <a href="#" className="hover:text-red-500">
-                Chính sách đổi trả
-              </a>
-            </li>
-            <li className="mb-2">
-              <a href="#" className="hover:text-red-500">
-                Phương thức thanh toán
-              </a>
-            </li>
-            <li className="mb-2">
-              <a href="#" className="hover:text-red-500">
-                Thông tin về vận chuyển
-              </a>
-            </li>
-            <li className="mb-2">
-              <a href="#" className="hover:text-red-500">
-                Chính sách bảo vệ thông tin của khách hàng
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        {/* Contact Info */}
-        <div>
-          <h6 className="font-semibold text-white mb-4 uppercase">
-            Tổng đài hỗ trợ
-          </h6>
-          <ul className="text-white text-sm">
-            <li className="mb-2">
-              <a href="#" className="hover:text-red-500">
-                GỌI BẢO HÀNH 0928206268- 0922306268 (8h-17h)
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-red-500">
-                GỌI HỖ TRỢ KỸ THUẬT: 0862858466 (8h-17h)
-              </a>
-            </li>
-          </ul>
-          <h4 className="text-white uppercase font-bold mb-3">
-            Phương Thức Thanh Toán
-          </h4>
-          <div className="flex gap-4">
-            <a href="#">
-              <Image src={codImage1} alt="COD 1" className="w-14" />
-            </a>
-            <a href="#">
-              <Image src={codImage2} alt="COD 2" className="w-14" />
-            </a>
+        {/* Copyright */}
+        <div className="border-t border-blue-800 pt-6">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="mb-4 md:mb-0">
+              <p className="text-sm text-blue-200">
+                © 2018 All Rights Reserved - Paris Logistics Co., Ltd
+              </p>
+            </div>
+            <div className="flex items-center space-x-4">
+              <p className="text-sm text-blue-200">
+                Professional & Logistics Solutions
+              </p>
+            </div>
           </div>
         </div>
       </div>
-      <div className="mt-8 text-center text-gray-500 text-xs">
-        © Copyright 2025 By Komex Digital.Powered by Komex Việt Nam.
-      </div>
+
+      {/* Scroll to Top Button */}
+      <motion.button
+        onClick={scrollToTop}
+        className="fixed bottom-6 right-6 w-12 h-12 bg-red-600 text-white rounded-full shadow-lg hover:bg-red-700 transition-colors duration-200 z-50 flex items-center justify-center"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+      >
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+      </motion.button>
     </footer>
   );
 };

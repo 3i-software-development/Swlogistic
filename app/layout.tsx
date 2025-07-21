@@ -3,19 +3,20 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import StoreProvider from "@/Redux/StoreProvider";
 import NavTop from "@/components/Header/NarTop";
-import Navbar from "@/components/Header/Navbar";
 import BottomNav from "@/components/Header/BottomNav";
-import logo from "@/public/Image/komex-digital-logo_a39f6b3a05934b128b6b2e4e11ee89e1.webp";
 
-const siteName = "Komex Digital";
-const siteUrl = "https://ecom.komex.com.vn/";
+const siteName = "Paris Logistics";
+const siteUrl = "https://parislogistics.com.vn/";
 const description =
-  "Komex Digital - Cung cấp các giải pháp và sản phẩm công nghệ hàng đầu.";
+  "Paris Logistics - Professional logistics solutions with global reach. We provide comprehensive transportation and logistics services.";
 const keywords = [
-  "thiết bị điện tử",
-  "công nghệ",
-  "sản phẩm kỹ thuật số",
-  "giải pháp công nghệ",
+  "logistics",
+  "transportation",
+  "freight",
+  "shipping",
+  "cargo",
+  "supply chain",
+  "professional logistics",
 ];
 
 const geistSans = Geist({
@@ -35,7 +36,6 @@ export const metadata: Metadata = {
   },
   description: description,
   keywords: keywords.join(", "),
-  icons: logo.src,
 
   openGraph: {
     title: siteName,
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     siteName: siteName,
     images: [
       {
-        url: "https://cdn-new.topcv.vn/unsafe/https://static.topcv.vn/company_logos/2zcB726UgVFR5RBnjJ66CqIuBQ9U0XKo_1694581378____e37386722a535bca4a4b7b79d79c315c.png",
+        url: "/images/paris-logistics-og.jpg",
         width: 1200,
         height: 630,
         alt: siteName,
@@ -57,11 +57,9 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteName,
     description: description,
-    site: "@komexdigital",
-    creator: "@yourhandle",
     images: [
       {
-        url: "https://cdn-new.topcv.vn/unsafe/https://static.topcv.vn/company_logos/2zcB726UgVFR5RBnjJ66CqIuBQ9U0XKo_1694581378____e37386722a535bca4a4b7b79d79c315c.png",
+        url: "/images/paris-logistics-og.jpg",
         width: 1200,
         height: 630,
         alt: siteName,
@@ -75,7 +73,7 @@ export const metadata: Metadata = {
   },
   authors: [
     {
-      name: "Komex",
+      name: "Paris Logistics",
       url: siteUrl,
     },
   ],
@@ -94,7 +92,6 @@ export default function RootLayout({
       >
         <StoreProvider>
           <NavTop />
-          <Navbar />
           {children}
           <BottomNav />
         </StoreProvider>
