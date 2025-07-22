@@ -8,6 +8,8 @@ import { setLanguage } from "@/Redux/languageSlice";
 import { useAppSelector } from "@/Redux/hook";
 import Link from "next/link";
 import logo from "@/Asset/image/logo.png";
+import vietnamFlag from "@/Asset/image/vietnam.png";
+import ukFlag from "@/Asset/image/united-kingdom.png";
 
 const NavTop = () => {
   const dispatch = useDispatch();
@@ -137,7 +139,7 @@ const NavTop = () => {
               className="flex items-center space-x-1 text-gray-800 hover:text-yellow-500 transition-colors"
             >
               <Image
-                src="/flags/vn.png"
+                src={vietnamFlag}
                 width={20}
                 height={15}
                 alt="Vietnamese"
@@ -155,7 +157,7 @@ const NavTop = () => {
                   className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 text-sm"
                 >
                   <div className="flex items-center space-x-2">
-                    <Image src="/flags/vn.png" width={16} height={12} alt="Vietnamese" />
+                    <Image src={vietnamFlag} width={16} height={12} alt="Vietnamese" />
                     <span>Tiếng Việt</span>
                   </div>
                 </button>
@@ -164,7 +166,7 @@ const NavTop = () => {
                   className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 text-sm"
                 >
                   <div className="flex items-center space-x-2">
-                    <Image src="/flags/uk.png" width={16} height={12} alt="English" />
+                    <Image src={ukFlag} width={16} height={12} alt="English" />
                     <span>English</span>
                   </div>
                 </button>
