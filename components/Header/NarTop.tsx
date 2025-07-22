@@ -102,9 +102,13 @@ const NavTop = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </button>
-            <div className="absolute top-full left-0 mt-2 w-48 bg-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-              <Link href="/services" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Our Services</Link>
-              <Link href="/solutions" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Solutions</Link>
+            <div className="absolute md:pl-6 md:pt-8 top-full left-0 mt-2 w-auto bg-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <Link href="/services/logistic/customs-clearance" className="block md:w-[285px] px-4 py-2 text-gray-700 hover:bg-gray-100">CUSTOMS CLEARANCE</Link>
+              <Link href="/services/logistic/warehouse" className="block md:w-[285px] px-4 py-2 text-gray-700 hover:bg-gray-100">WAREHOUSE</Link>
+              <Link href="/services/logistic/inland-haulage" className="block md:w-[285px] px-4 py-2 text-gray-700 hover:bg-gray-100">INLAND HAULAGE</Link>
+              <Link href="/services/logistic/temperature-controlled-transport" className="block md:w-[285px] px-4 py-2 text-gray-700 hover:bg-gray-100">TEMPERATURE-CONTROLLED TRANSPORT</Link>
+              <Link href="/services/logistic/international-freight-forwarding" className="block md:w-[285px] px-4 py-2 text-gray-700 hover:bg-gray-100">INTERNATIONAL FREIGHT FORWARDING</Link>
+              <Link href="/services/logistic/project-cargoes" className="block md:w-[285px] px-4 py-2 text-gray-700 hover:bg-gray-100">PROJECT CARGOES</Link>
             </div>
           </div>
           <Link href="/news" className="text-gray-800 hover:text-blue-600 font-medium transition-colors">
