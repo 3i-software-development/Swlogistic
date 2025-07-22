@@ -111,10 +111,10 @@ const NavTop = () => {
               <Link href="/services/logistic/project-cargoes" className="block md:w-[285px] px-4 py-2 text-gray-700 hover:bg-gray-100">PROJECT CARGOES</Link>
             </div>
           </div>
-          <Link href="/news" className="text-gray-800 hover:text-blue-600 font-medium transition-colors">
+          <Link href="/tin-tuc" className="text-gray-800 hover:text-blue-600 font-medium transition-colors">
             News
           </Link>
-          <Link href="/contact" className="text-gray-800 hover:text-blue-600 font-medium transition-colors">
+          <Link href="/lien-he" className="text-gray-800 hover:text-blue-600 font-medium transition-colors">
             Contact
           </Link>
         </nav>
