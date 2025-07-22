@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -59,6 +60,31 @@ body {
     transform: scale(1.05);
   }
 }
+
+@layer components {
+  .breadcrumbs {
+    @apply flex items-center text-sm text-foreground;
+  }
+  
+  .breadcrumbs-link {
+    @apply capitalize;
+  }
+
+  .breadcrumbs-link > a:hover {
+    @apply bg-blue-300;
+  }
+  
+  .breadcrumbs-link:not(:first-child)::before {
+    content: '/';
+    @apply mx-2 ;
+  }
+
+  .service-paragraph {
+    @apply md:mb-4;
+  }
+}
+
+
 
 .animate-float {
   animation: float 3s ease-in-out infinite;
