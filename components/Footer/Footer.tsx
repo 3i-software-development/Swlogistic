@@ -32,10 +32,10 @@ const Footer = () => {
                   className="w-full h-full object-contain"
                 />
               </div>
-              <div>
+              {/* <div>
                 <h2 className="text-2xl font-bold text-yellow-500">KTO</h2>
                 <p className="text-sm text-gray-400">Logistics</p>
-              </div>
+              </div> */}
             </div>
 
             {/* Contact Details */}
