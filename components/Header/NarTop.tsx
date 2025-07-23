@@ -8,52 +8,48 @@ import { setLanguage } from "@/Redux/languageSlice";
 import { useAppSelector } from "@/Redux/hook";
 import Link from "next/link";
 import logo from "@/Asset/image/logo.png";
-import vietnamFlag from "@/Asset/image/vietnam.png";
-import ukFlag from "@/Asset/image/united-kingdom.png";
+import { useTranslation } from "@/hooks/useTranslation";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 const NavTop = () => {
   const dispatch = useDispatch();
+  const { t, changeLanguage, currentLanguage } = useTranslation();
   
-  const currentLanguage = useAppSelector(
+  const currentLanguageRedux = useAppSelector(
     (state) => state.language.selectedLanguage
   );
 
-  const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  const handleLanguageChange = (language: Language) => {
-    dispatch(setLanguage(language));
-    setIsLanguageDropdownOpen(false);
-  };
-
-  const toggleLanguageDropdown = () => {
-    setIsLanguageDropdownOpen((prev) => !prev);
-  };
-
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      dropdownRef.current &&
-      !dropdownRef.current.contains(event.target as Node)
-    ) {
-      setIsLanguageDropdownOpen(false);
-    }
-  };
-
+  // Sync translation hook with Redux state
   useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+    if (currentLanguageRedux) {
+      // Convert Redux language format to translation hook format
+      const languageMap: { [key: string]: 'vi' | 'en' | 'zh' } = {
+        'vi_VN': 'vi',
+        'en_US': 'en',
+        'zh_CN': 'zh'
+      };
+      
+      const mappedLanguage = languageMap[currentLanguageRedux.code] || 'vi';
+      if (mappedLanguage !== currentLanguage) {
+        changeLanguage(mappedLanguage);
+      }
+    }
+  }, [currentLanguageRedux, currentLanguage, changeLanguage]);
 
-  const getLangShort = (code: string) => {
-    switch (code) {
-      case "en_US":
-        return "EN";
-      case "vi_VN":
-        return "VI";
-      case "zh_CN":
-        return "CN";
-      default:
-        return "EN";
+  // Handle language change from translation hook
+  const handleLanguageChange = (language: 'vi' | 'en' | 'zh') => {
+    changeLanguage(language);
+    
+    // Also update Redux state
+    const reverseLanguageMap: { [key: string]: Language } = {
+      'vi': languages[0], // vi_VN
+      'en': languages[1], // en_US
+      'zh': languages[2]  // zh_CN
+    };
+    
+    const reduxLanguage = reverseLanguageMap[language];
+    if (reduxLanguage) {
+      dispatch(setLanguage(reduxLanguage));
     }
   };
 
@@ -82,117 +78,70 @@ const NavTop = () => {
         {/* Navigation Links - Center */}
         <nav className="hidden lg:flex items-center space-x-8">
           <Link href="/" className="text-[#0088cc] hover:text-yellow-500 transition-colors text-[19px] font-normal" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>
-            Home
+            {t('nav.home')}
           </Link>
           <div className="relative group">
             <button className="text-[#0088cc] hover:text-yellow-500 transition-colors flex items-center text-[19px] font-normal" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>
-              About
+              {t('nav.about')}
               <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </button>
             <div className="absolute top-full left-0 mt-2 w-56 bg-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-              <Link href="/gioi-thieu" className="block px-6 py-3 text-[#000] hover:text-[#006699] hover:bg-gray-50 text-[16px] font-normal transition-colors" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>About Us</Link>
-              <Link href="/gioi-thieu/meeting" className="block px-6 py-3 text-[#000] hover:text-[#006699] hover:bg-gray-50 text-[16px] font-normal transition-colors" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>Meeting</Link>
-              <Link href="/gioi-thieu/vision-mission" className="block px-6 py-3 text-[#000] hover:text-[#006699] hover:bg-gray-50 text-[16px] font-normal transition-colors" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>Vision - Mission</Link>
-              <Link href="/gioi-thieu/core-values" className="block px-6 py-3 text-[#000] hover:text-[#006699] hover:bg-gray-50 text-[16px] font-normal transition-colors" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>Core Values</Link>
-              <Link href="/gioi-thieu/code-conduct" className="block px-6 py-3 text-[#000] hover:text-[#006699] hover:bg-gray-50 text-[16px] font-normal transition-colors" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>Code of Business Conduct</Link>
-              <Link href="/gioi-thieu/trading-conditions" className="block px-6 py-3 text-[#000] hover:text-[#006699] hover:bg-gray-50 text-[16px] font-normal transition-colors" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>Standard Trading Conditions</Link>
+              <Link href="/gioi-thieu" className="block px-6 py-3 text-[#000] hover:text-yellow-500 hover:bg-gray-50 text-[16px] font-normal transition-colors" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>{t('about.aboutUs')}</Link>
+              <Link href="/gioi-thieu/meeting" className="block px-6 py-3 text-[#000] hover:text-yellow-500 hover:bg-gray-50 text-[16px] font-normal transition-colors" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>{t('about.meeting')}</Link>
+              <Link href="/gioi-thieu/vision-mission" className="block px-6 py-3 text-[#000] hover:text-yellow-500 hover:bg-gray-50 text-[16px] font-normal transition-colors" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>{t('about.visionMission')}</Link>
+              <Link href="/gioi-thieu/core-values" className="block px-6 py-3 text-[#000] hover:text-yellow-500 hover:bg-gray-50 text-[16px] font-normal transition-colors" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>{t('about.coreValues')}</Link>
+              <Link href="/gioi-thieu/code-conduct" className="block px-6 py-3 text-[#000] hover:text-yellow-500 hover:bg-gray-50 text-[16px] font-normal transition-colors" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>{t('about.codeConduct')}</Link>
+              <Link href="/gioi-thieu/trading-conditions" className="block px-6 py-3 text-[#000] hover:text-yellow-500 hover:bg-gray-50 text-[16px] font-normal transition-colors" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>{t('about.tradingConditions')}</Link>
             </div>
           </div>
           <div className="relative group">
             <button className="text-[#0088cc] hover:text-yellow-500 transition-colors flex items-center text-[19px] font-normal" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>
-              Services
+              {t('nav.services')}
               <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </button>
             <div className="absolute top-full left-0 mt-2 w-auto bg-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-              <Link href="/services/logistic/customs-clearance" className="block md:w-[285px] px-6 py-3 text-[#000] hover:text-[#006699] hover:bg-gray-50 text-[16px] font-normal transition-colors" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>Customs Clearance</Link>
-              <Link href="/services/logistic/warehouse" className="block md:w-[285px] px-6 py-3 text-[#000] hover:text-[#006699] hover:bg-gray-50 text-[16px] font-normal transition-colors" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>Warehouse</Link>
-              <Link href="/services/logistic/inland-haulage" className="block md:w-[285px] px-6 py-3 text-[#000] hover:text-[#006699] hover:bg-gray-50 text-[16px] font-normal transition-colors" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>Inland Haulage</Link>
-              <Link href="/services/logistic/temperature-controlled-transport" className="block md:w-[285px] px-6 py-3 text-[#000] hover:text-[#006699] hover:bg-gray-50 text-[16px] font-normal transition-colors" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>Temperature-Controlled Transport</Link>
-              <Link href="/services/logistic/international-freight-forwarding" className="block md:w-[285px] px-6 py-3 text-[#000] hover:text-[#006699] hover:bg-gray-50 text-[16px] font-normal transition-colors" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>International Freight Forwarding</Link>
-              <Link href="/services/logistic/project-cargoes" className="block md:w-[285px] px-6 py-3 text-[#000] hover:text-[#006699] hover:bg-gray-50 text-[16px] font-normal transition-colors" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>Project Cargoes</Link>
+              <Link href="/services/logistic/customs-clearance" className="block md:w-[285px] px-6 py-3 text-[#000] hover:text-yellow-500 hover:bg-gray-50 text-[16px] font-normal transition-colors" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>{t('services.customsClearance')}</Link>
+              <Link href="/services/logistic/warehouse" className="block md:w-[285px] px-6 py-3 text-[#000] hover:text-yellow-500 hover:bg-gray-50 text-[16px] font-normal transition-colors" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>{t('services.warehouse')}</Link>
+              <Link href="/services/logistic/inland-haulage" className="block md:w-[285px] px-6 py-3 text-[#000] hover:text-yellow-500 hover:bg-gray-50 text-[16px] font-normal transition-colors" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>{t('services.inlandHaulage')}</Link>
+              <Link href="/services/logistic/temperature-controlled-transport" className="block md:w-[285px] px-6 py-3 text-[#000] hover:text-yellow-500 hover:bg-gray-50 text-[16px] font-normal transition-colors" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>{t('services.temperatureControlled')}</Link>
+              <Link href="/services/logistic/international-freight-forwarding" className="block md:w-[285px] px-6 py-3 text-[#000] hover:text-yellow-500 hover:bg-gray-50 text-[16px] font-normal transition-colors" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>{t('services.internationalFreight')}</Link>
+              <Link href="/services/logistic/project-cargoes" className="block md:w-[285px] px-6 py-3 text-[#000] hover:text-yellow-500 hover:bg-gray-50 text-[16px] font-normal transition-colors" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>{t('services.projectCargoes')}</Link>
             </div>
           </div>
           <Link href="/tin-tuc" className="text-[#0088cc] hover:text-yellow-500 transition-colors text-[19px] font-normal" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>
-            News
+            {t('nav.news')}
           </Link>
           <div className="relative group">
             <button className="text-[#0088cc] hover:text-yellow-500 transition-colors flex items-center text-[19px] font-normal" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>
-              Library
+              {t('nav.library')}
               <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </button>
             <div className="absolute top-full left-0 mt-2 w-64 bg-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-              <Link href="/thu-vien/share" className="block px-6 py-3 text-[#000] hover:text-[#006699] hover:bg-gray-50 text-[16px] font-normal transition-colors" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>Share</Link>
-              <Link href="/thu-vien/legal-documents" className="block px-6 py-3 text-[#000] hover:text-[#006699] hover:bg-gray-50 text-[16px] font-normal transition-colors" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>Legal Documents</Link>
-              <Link href="/thu-vien/useful-websites" className="block px-6 py-3 text-[#000] hover:text-[#006699] hover:bg-gray-50 text-[16px] font-normal transition-colors" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>Useful Websites</Link>
-              <Link href="/thu-vien/reference-documents" className="block px-6 py-3 text-[#000] hover:text-[#006699] hover:bg-gray-50 text-[16px] font-normal transition-colors" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>Reference CVs, Emails, Documents</Link>
-              <Link href="/thu-vien/qa" className="block px-6 py-3 text-[#000] hover:text-[#006699] hover:bg-gray-50 text-[16px] font-normal transition-colors" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>Q & A</Link>
+              <Link href="/thu-vien/share" className="block px-6 py-3 text-[#000] hover:text-yellow-500 hover:bg-gray-50 text-[16px] font-normal transition-colors" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>{t('library.share')}</Link>
+              <Link href="/thu-vien/legal-documents" className="block px-6 py-3 text-[#000] hover:text-yellow-500 hover:bg-gray-50 text-[16px] font-normal transition-colors" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>{t('library.legalDocuments')}</Link>
+              <Link href="/thu-vien/useful-websites" className="block px-6 py-3 text-[#000] hover:text-yellow-500 hover:bg-gray-50 text-[16px] font-normal transition-colors" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>{t('library.usefulWebsites')}</Link>
+              <Link href="/thu-vien/reference-documents" className="block px-6 py-3 text-[#000] hover:text-yellow-500 hover:bg-gray-50 text-[16px] font-normal transition-colors" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>{t('library.referenceDocuments')}</Link>
+              <Link href="/thu-vien/qa" className="block px-6 py-3 text-[#000] hover:text-yellow-500 hover:bg-gray-50 text-[16px] font-normal transition-colors" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>{t('library.qa')}</Link>
             </div>
           </div>
           <Link href="/tuyen-dung" className="text-[#0088cc] hover:text-yellow-500 transition-colors text-[19px] font-normal" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>
-            Job
+            {t('nav.job')}
           </Link>
           <Link href="/lien-he" className="text-[#0088cc] hover:text-yellow-500 transition-colors text-[19px] font-normal" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>
-            Contact
+            {t('nav.contact')}
           </Link>
         </nav>
 
         {/* Right Side - Contact Button, Language, Search */}
         <div className="flex items-center space-x-4">
-          {/* Contact Button */}
-          {/* <Link 
-            href="/lien-he" 
-            className="bg-yellow-500 text-gray-800 px-6 py-2 rounded-lg font-semibold hover:bg-yellow-400 transition-colors duration-200 text-sm"
-          >
-            LIÊN HỆ
-          </Link> */}
-
           {/* Language Selector */}
-          <div className="relative" ref={dropdownRef}>
-            <button
-              onClick={toggleLanguageDropdown}
-              className="flex items-center space-x-1 text-gray-800 hover:text-yellow-500 transition-colors"
-            >
-              <Image
-                src={vietnamFlag}
-                width={20}
-                height={15}
-                alt="Vietnamese"
-                className="rounded-sm"
-              />
-              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            
-            {isLanguageDropdownOpen && (
-              <div className="absolute top-full right-0 mt-2 w-32 bg-white shadow-lg rounded-md z-50">
-                <button
-                  onClick={() => handleLanguageChange(languages[0])}
-                  className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 text-sm"
-                >
-                  <div className="flex items-center space-x-2">
-                    <Image src={vietnamFlag} width={16} height={12} alt="Vietnamese" />
-                    <span>Tiếng Việt</span>
-                  </div>
-                </button>
-                <button
-                  onClick={() => handleLanguageChange(languages[1])}
-                  className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 text-sm"
-                >
-                  <div className="flex items-center space-x-2">
-                    <Image src={ukFlag} width={16} height={12} alt="English" />
-                    <span>English</span>
-                  </div>
-                </button>
-              </div>
-            )}
-          </div>
+          <LanguageSwitcher onLanguageChange={handleLanguageChange} />
 
           {/* Search Icon */}
           <button className="text-gray-800 hover:text-yellow-500 transition-colors">

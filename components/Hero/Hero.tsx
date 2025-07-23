@@ -40,13 +40,13 @@ export default function Hero() {
             />
           </svg>
         </div>
-      </div>
+        </div>
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6 py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left side - Text content */}
-          <motion.div 
+          <motion.div
             className="text-white"
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -73,10 +73,10 @@ export default function Hero() {
               Trust Paris Logistics for all your transportation needs.
             </motion.p>
             
-            <motion.div 
+              <motion.div
               className="flex flex-col sm:flex-row gap-4"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
               <a 
@@ -97,7 +97,7 @@ export default function Hero() {
             </motion.div>
             
             {/* Stats */}
-            <motion.div 
+                  <motion.div
               className="grid grid-cols-3 gap-8 mt-12"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -116,7 +116,7 @@ export default function Hero() {
                 <div className="text-sm text-gray-300">Happy Clients</div>
               </div>
             </motion.div>
-          </motion.div>
+                  </motion.div>
 
           {/* Right side - Truck illustration */}
           <motion.div 
@@ -131,7 +131,7 @@ export default function Hero() {
                 <svg 
                   className="w-full h-full max-w-md" 
                   viewBox="0 0 400 300" 
-                  fill="none"
+                      fill="none"
                 >
                   {/* Truck body */}
                   <rect x="50" y="120" width="200" height="80" fill="white" rx="10"/>
@@ -168,14 +168,14 @@ export default function Hero() {
                   <rect x="0" y="270" width="400" height="5" fill="#666"/>
                   <rect x="0" y="285" width="400" height="5" fill="#666"/>
                   <rect x="0" y="300" width="400" height="5" fill="#666"/>
-                </svg>
+                    </svg>
                 
                 {/* Light rays effect */}
                 <div className="absolute top-0 left-0 w-full h-full">
                   <div className="absolute top-10 left-10 w-32 h-32 bg-yellow-400/30 rounded-full blur-xl animate-pulse"></div>
                   <div className="absolute top-20 left-20 w-24 h-24 bg-white/20 rounded-full blur-lg animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-                </div>
-              </div>
+                  </div>
+                  </div>
               
               {/* Floating elements */}
               <motion.div 
@@ -206,7 +206,7 @@ export default function Hero() {
             </div>
           </motion.div>
         </div>
-      </div>
+            </div>
 
       {/* Scroll indicator */}
       <motion.div 

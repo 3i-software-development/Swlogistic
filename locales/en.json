@@ -1,0 +1,88 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "news": "News",
+    "library": "Library",
+    "job": "Job",
+    "contact": "Contact"
+  },
+  "about": {
+    "aboutUs": "About Us",
+    "meeting": "Meeting",
+    "visionMission": "Vision - Mission",
+    "coreValues": "Core Values",
+    "codeConduct": "Code of Business Conduct",
+    "tradingConditions": "Standard Trading Conditions"
+  },
+  "services": {
+    "customsClearance": "Customs Clearance",
+    "warehouse": "Warehouse",
+    "inlandHaulage": "Inland Haulage",
+    "temperatureControlled": "Temperature-Controlled Transport",
+    "internationalFreight": "International Freight Forwarding",
+    "projectCargoes": "Project Cargoes"
+  },
+  "library": {
+    "share": "Share",
+    "legalDocuments": "Legal Documents",
+    "usefulWebsites": "Useful Websites",
+    "referenceDocuments": "Reference CVs, Emails, Documents",
+    "qa": "Q & A"
+  },
+  "common": {
+    "learnMore": "Learn More",
+    "getQuote": "Get Quote",
+    "download": "Download",
+    "viewDetails": "View Details",
+    "contactUs": "Contact Us",
+    "loading": "Loading...",
+    "readMore": "Read More"
+  },
+  "home": {
+    "hero": {
+      "title1": "Professional Logistics Solutions",
+      "subtitle1": "Global Reach, Local Expertise",
+      "description1": "We provide comprehensive logistics services with worldwide coverage, ensuring your cargo reaches its destination safely and efficiently.",
+      "title2": "Customs Clearance Services",
+      "subtitle2": "Fast & Reliable Processing",
+      "description2": "Expert customs clearance services to streamline your import/export operations and reduce delays.",
+      "title3": "Warehouse & Distribution",
+      "subtitle3": "Strategic Storage Solutions",
+      "description3": "Modern warehouse facilities with advanced inventory management systems for optimal storage and distribution.",
+      "title4": "International Freight Forwarding",
+      "subtitle4": "Seamless Global Transportation",
+      "description4": "End-to-end freight forwarding solutions connecting businesses across continents with reliable and cost-effective shipping options."
+    },
+    "about": {
+      "title": "About KTO Logistics",
+      "description": "Established in 2015, KTO Logistics Joint Stock Company (KTO Logistics., JSC) is now one of the leading integrated logistics service providers in the region, with a team of logistics experts with high knowledge and expertise.",
+      "description2": "We continuously improve to bring diverse, integrated logistics solutions to customers to meet the increasingly complex needs of customers, both in Vietnam and worldwide.",
+      "stats": {
+        "experience": "Years of Experience",
+        "countries": "Countries Served",
+        "clients": "Satisfied Clients"
+      },
+      "features": {
+        "globalNetwork": "Global Network",
+        "globalNetworkDesc": "Worldwide coverage with strategic partners",
+        "support247": "24/7 Support",
+        "support247Desc": "Customer service and cargo tracking around the clock",
+        "advancedTech": "Advanced Technology",
+        "advancedTechDesc": "Modern and innovative logistics management system"
+      }
+    }
+  },
+  "footer": {
+    "company": "Company",
+    "services": "Services",
+    "support": "Support",
+    "contact": "Contact",
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email",
+    "followUs": "Follow Us",
+    "allRightsReserved": "All Rights Reserved"
+  }
+} 
