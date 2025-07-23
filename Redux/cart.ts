@@ -1,4 +1,4 @@
-import { CartIntemType } from "@/Utils/type";
+import { CartIntemType } from "@/utils/type";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface OrderHeader {

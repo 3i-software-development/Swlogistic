@@ -1,4 +1,4 @@
-import { UserProfile } from "@/Utils/type";
+import { UserProfile } from "@/utils/type";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface UserState {

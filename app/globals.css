@@ -40,6 +40,11 @@ body {
   line-height: 1.6;
 }
 
+/* Font utilities */
+.font-roboto-condensed {
+  font-family: var(--font-roboto-condensed), 'Roboto Condensed', sans-serif;
+}
+
 /* Custom animations */
 @keyframes float {
   0%, 100% {

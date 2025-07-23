@@ -1,9 +1,9 @@
 "use client";
 
-import { GetProductById, getReviewProducts } from "@/Apis/Product";
+import { GetProductById, getReviewProducts } from "@/apis/Product";
 import { useAppDispatch } from "@/Redux/hook";
-import { baseURL } from "@/Utils/Axios";
-import { Product, ProductType } from "@/Utils/type";
+import { baseURL } from "@/utils/Axios";
+import { Product, ProductType } from "@/utils/type";
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import { addItem } from "@/Redux/cart";

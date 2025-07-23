@@ -1,8 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import Image from "next/image";
-import logo from "@/Asset/image/logo.png";
+import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from "react-icons/fa";
+import logo from "@/assets/image/logo.png";
 
 const Footer = () => {
   const scrollToTop = () => {

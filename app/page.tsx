@@ -9,10 +9,10 @@ import NewsHome from "@/components/News/NewsHome";
 import Partners from "@/components/Partners/Partners";
 
 // Import images from Asset folder
-import productionLogistics from "@/Asset/image/Production_Logistics_Services.jpg";
-import inlineImages from "@/Asset/image/inline-images-800x450-2.webp";
-import nganhLogistic from "@/Asset/image/Nganh-logistic-la-gi.webp";
-import image2 from "@/Asset/image/image-2-1024x666.jpeg";
+import productionLogistics from "@/assets/image/Production_Logistics_Services.jpg";
+import inlineImages from "@/assets/image/inline-images-800x450-2.webp";
+import nganhLogistic from "@/assets/image/Nganh-logistic-la-gi.webp";
+import image2 from "@/assets/image/image-2-1024x666.jpeg";
 
 // Define types for better TypeScript support
 type Slide = {

@@ -1,9 +1,1 @@
-"use client";
-import axios from "axios";
-export const baseURL = "https://backend.smartwork.3i.com.vn";
-const axiosInstance = axios.create({
-  baseURL: "https://backend.smartwork.3i.com.vn",
-  timeout: 10000,
-});
-
-export default axiosInstance;
+export const baseURL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api"; 

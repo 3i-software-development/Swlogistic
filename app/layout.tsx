@@ -1,9 +1,16 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Roboto_Condensed } from "next/font/google";
 import "./globals.css";
 import StoreProvider from "@/Redux/StoreProvider";
-import NavTop from "@/components/Header/NarTop";
+import NavTop from "@/components/Header/NavTop";
 import BottomNav from "@/components/Header/BottomNav";
+
+const robotoCondensed = Roboto_Condensed({
+  subsets: ['latin'],
+  weight: ['400', '700'], // hoặc thêm '500' nếu muốn
+  display: 'swap',
+})
 
 const siteName = "KTO Logistics";
 const siteUrl = "https://ktologistics.vn/";
@@ -87,8 +94,14 @@ export default function RootLayout({
 }>) {
   return (
     <html>
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${robotoCondensed.className} antialiased`}
       >
         <StoreProvider>
           <NavTop />

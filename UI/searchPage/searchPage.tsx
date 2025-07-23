@@ -3,10 +3,10 @@
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "@/Redux/hook";
-import { ProductType } from "@/Utils/type";
+import { ProductType } from "@/utils/type";
 import Fuse from "fuse.js";
 import Image from "next/image";
-import { baseURL } from "@/Utils/Axios";
+import { baseURL } from "@/utils/Axios";
 import Link from "next/link";
 import { FaArrowUp } from "react-icons/fa";
 
