@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Footer from "@/components/Footer/Footer";
 import OurServices from "@/components/Services/OurService";
-import { motion } from "framer-motion";
 import NewsHome from "@/components/News/NewsHome";
 import Partners from "@/components/Partners/Partners";
 
