@@ -6,31 +6,37 @@ const services = [
     title: "CUSTOMS CLEARANCE",
     image: "/images/customs-1.jpg",
     slug: "customs-clearance",
+    fileName: "customs-clearance"
   },
   {
     title: "WAREHOUSE",
     image: "/images/customs-2.jpg",
     slug: "warehouse",
+    fileName: "warehouse"
   },
   {
     title: "INLAND HAULAGE",
     image: "/images/customs-4.jpg",
     slug: "inland-haulage",
+    fileName: "inland-haulage"
   },
   {
-    title: "CUSTOMS CLEARANCE",
-    image: "/images/customs-1.jpg",
-    slug: "customs-clearance",
+    title: "INTERNATIONAL FREIGHT FORWARDING",
+    image: "/images/customs-3.jpg",
+    slug: "international-freight-forwarding",
+    fileName: "international-freight-forwarding"
   },
   {
-    title: "WAREHOUSE",
-    image: "/images/customs-2.jpg",
-    slug: "warehouse",
+    title: "PROJECT CARGOES",
+    image: "/images/customs-5.jpg",
+    slug: "project-cargoes",
+    fileName: "project-cargoes"
   },
   {
-    title: "INLAND HAULAGE",
-    image: "/images/customs-4.jpg",
-    slug: "inland-haulage",
+    title: "TEMPERATURE CONTROLLED TRANSPORT",
+    image: "/images/customs-6.jpg",
+    slug: "temperature-controlled-transport",
+    fileName: "temperature-controlled-transport"
   },
   // Thêm các mục khác tương tự
 ];
@@ -44,11 +50,15 @@ export default function OurServices() {
       </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-8">
         {services.map((service) => (
-          <Link key={service.slug} href={`/services/${service.slug}`} className="text-center hover:scale-105 transition">
+          <Link 
+            key={service.slug} 
+            href={`/services/logistic/${service.fileName}`} 
+            className="text-center hover:scale-105 transition"
+          >
             <img
               src={service.image}
               alt={service.title}
-              className="rounded-full w-56 h-56 object-cover mx-auto  "
+              className="rounded-full w-56 h-56 object-cover mx-auto"
             />
             <p className="mb-8 mt-4 font-semibold">{service.title}</p>
           </Link>

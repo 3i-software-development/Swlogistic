@@ -4,7 +4,7 @@ import Hero from "@/components/Hero/Hero";
 import Footer from "@/components/Footer/Footer";
 import OurServices from "@/components/Services/OurService";
 import { motion } from "framer-motion";
-import New from "@/components/News/New";
+import NewsHome from "@/components/News/NewsHome";
 import Partners from "@/components/Partners/Partners";
 import "@/app/globals.css";
 
@@ -67,7 +67,7 @@ export default function Home() {
         </section>
         {/* Stats Section */}
         <OurServices />
-        <New />
+        <NewsHome />
         <Partners />
       </main>
       <Footer />
