@@ -420,7 +420,7 @@ const NewsArticleDetail = ({ article, breadcrumbPath }: NewsArticleDetailProps) 
               <h3 className="text-2xl font-bold text-gray-900 mb-6">Related Articles</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {article.relatedArticles.map((relatedArticle) => (
-                  <Link key={relatedArticle.id} href={`/tin-tuc/${relatedArticle.urlAlias}`} className="block group">
+                  <Link key={relatedArticle.id} href={`/news/${relatedArticle.urlAlias}`} className="block group">
                     <div className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow duration-200">
                       <h4 className="font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
                         {relatedArticle.title}
@@ -441,7 +441,7 @@ const NewsArticleDetail = ({ article, breadcrumbPath }: NewsArticleDetailProps) 
             transition={{ duration: 0.8, delay: 0.8 }}
           >
             <Link 
-              href="/tin-tuc"
+              href="/news"
               className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
             >
               <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

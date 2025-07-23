@@ -14,5 +14,10 @@ export const languages: Language[] = [
     code: "en_US", 
     name: "English",
     flag: "/images/uk-flag.png"
+  },
+  {
+    code: "zh_CN",
+    name: "中文",
+    flag: "/images/china-flag.png"
   }
 ]; 

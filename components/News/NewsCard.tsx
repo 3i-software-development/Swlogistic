@@ -136,7 +136,7 @@ const NewsCard = ({ article, index = 0 }: NewsCardProps) => {
         
         {/* Read More Button */}
         <Link 
-          href={`/tin-tuc/${article.urlAlias}`}
+          href={`/news/${article.urlAlias}`}
           className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-200"
         >
           {article.readMoreText || "Xem Thêm →"}

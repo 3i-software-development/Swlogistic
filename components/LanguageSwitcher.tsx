@@ -3,8 +3,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 import Image from 'next/image';
-import vietnamFlag from "@/Asset/image/vietnam.png";
-import ukFlag from "@/Asset/image/united-kingdom.png";
+import vietnamFlag from "@/assets/image/vietnam.png";
+import ukFlag from "@/assets/image/united-kingdom.png";
 
 interface LanguageSwitcherProps {
   onLanguageChange?: (language: 'vi' | 'en' | 'zh') => void;
@@ -77,8 +77,8 @@ const LanguageSwitcher = ({ onLanguageChange }: LanguageSwitcherProps) => {
         ) : (
           <Image
             src={getFlagImage(currentLanguage)!}
-            width={20}
-            height={15}
+            width={30}
+            height={20}
             alt={languages.find(lang => lang.code === currentLanguage)?.name || 'Language'}
             className="rounded-sm"
           />

@@ -97,7 +97,7 @@ export default function NewsSection() {
               transition={{ duration: 0.6, delay: index * 0.2 }}
               viewport={{ once: true }}
             >
-              <Link href={`/tin-tuc/${article.urlAlias}`} className="block hover:scale-105 transition-transform duration-300">
+              <Link href={`/news/${article.urlAlias}`} className="block hover:scale-105 transition-transform duration-300">
                 <div className="relative">
                   <Image
                     src={`/images/new${index + 1}.jpg`}
@@ -133,7 +133,7 @@ export default function NewsSection() {
       
       <div className="text-center mt-12">
         <Link 
-          href="/tin-tuc" 
+          href="/news" 
           className="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-300"
         >
           View All News <span className="ml-2">→</span>
