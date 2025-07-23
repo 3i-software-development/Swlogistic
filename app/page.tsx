@@ -7,6 +7,7 @@ import Footer from "@/components/Footer/Footer";
 import OurServices from "@/components/Services/OurService";
 import NewsHome from "@/components/News/NewsHome";
 import Partners from "@/components/Partners/Partners";
+import { useTranslation } from "@/hooks/useTranslation";
 
 // Import images from Asset folder
 import productionLogistics from "@/assets/image/Production_Logistics_Services.jpg";
@@ -34,147 +35,90 @@ type AboutData = {
   features: { title: string; description: string; icon: string; }[];
 };
 
-// Service for fetching carousel data
-const CarouselService = {
-  // Mock API function - replace with your actual API endpoint
-  async getCarouselSlides() {
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
-    // Return mock data - replace this with actual API call
-    return [
-      {
-        id: 1,
-        title: "Professional Logistics Solutions",
-        subtitle: "Global Reach, Local Expertise",
-        description: "We provide comprehensive logistics services with worldwide coverage, ensuring your cargo reaches its destination safely and efficiently.",
-        bgColor: "from-blue-600 to-blue-800",
-        textColor: "text-white",
-        buttonText: "Our Services",
-        buttonLink: "/services"
-      },
-      {
-        id: 2,
-        title: "Customs Clearance Services",
-        subtitle: "Fast & Reliable Processing",
-        description: "Expert customs clearance services to streamline your import/export operations and reduce delays.",
-        bgColor: "from-green-600 to-green-800",
-        textColor: "text-white",
-        buttonText: "Learn More",
-        buttonLink: "/services/logistic/customs-clearance"
-      },
-      {
-        id: 3,
-        title: "Warehouse & Distribution",
-        subtitle: "Strategic Storage Solutions",
-        description: "Modern warehouse facilities with advanced inventory management systems for optimal storage and distribution.",
-        bgColor: "from-orange-600 to-orange-800",
-        textColor: "text-white",
-        buttonText: "View Facilities",
-        buttonLink: "/services/logistic/warehouse"
-      },
-      {
-        id: 4,
-        title: "International Freight Forwarding",
-        subtitle: "Seamless Global Transportation",
-        description: "End-to-end freight forwarding solutions connecting businesses across continents with reliable and cost-effective shipping options.",
-        bgColor: "from-purple-600 to-purple-800",
-        textColor: "text-white",
-        buttonText: "Get Quote",
-        buttonLink: "/services/logistic/international-freight-forwarding"
-      }
-    ];
-  },
-
-  // Real API function example (uncomment and modify as needed)
-  /*
-  async getCarouselSlides() {
-    try {
-      const response = await fetch('/api/carousel-slides');
-      if (!response.ok) {
-        throw new Error('Failed to fetch carousel data');
-      }
-      return await response.json();
-    } catch (error) {
-      console.error('Error fetching carousel data:', error);
-      return []; // Return empty array or fallback data
-    }
-  }
-  */
-};
-
-// Service for fetching about section data
-const AboutService = {
-  async getAboutData(): Promise<AboutData> {
-    await new Promise(resolve => setTimeout(resolve, 300));
-    
-    return {
-      title: "KTO Logistics",
-      description: "Được thành lập vào năm 2015, Công ty cổ phần Giao nhận KTO (KTO Logistics., JSC) nay là một trong những doanh nghiệp cung cấp dịch vụ logistics tổng hợp hàng đầu khu vực, với đội ngũ chuyên gia logistics có kiến thức và chuyên môn cao.",
-      description2: "Chúng tôi liên tục cải tiến để đưa đến cho khách hàng đa dạng, tổng hợp các giải pháp logistics trọn gói giúp đáp ứng các nhu cầu ngày càng phức tạp của khách hàng, cả ở Việt Nam và trên toàn thế giới. Với tư duy toàn cầu và triết lý kinh doanh lấy khách hàng làm trọng tâm phục vụ, kết hợp với chuyên môn và những sáng kiến cải tiến công nghệ tân tiến, chúng tôi luôn cải tiến chất lượng dịch vụ để vượt xa sự mong đợi của khách hàng, vì sự phát triển và thành công của khách hàng cũng như của chính chúng tôi.",
-      stats: [
-        { number: "8+", label: "Năm Kinh Nghiệm" },
-        { number: "50+", label: "Quốc Gia Phục Vụ" },
-        { number: "1000+", label: "Khách Hàng Hài Lòng" }
-      ],
-      features: [
-        {
-          title: "Mạng Lưới Toàn Cầu",
-          description: "Phủ sóng rộng khắp thế giới với các đối tác chiến lược",
-          icon: "globe"
-        },
-        {
-          title: "Hỗ Trợ 24/7",
-          description: "Dịch vụ khách hàng và theo dõi hàng hóa suốt ngày đêm",
-          icon: "clock"
-        },
-        {
-          title: "Công Nghệ Tiên Tiến",
-          description: "Hệ thống quản lý logistics hiện đại và sáng tạo",
-          icon: "chip"
-        }
-      ]
-    };
-  }
-};
-
 export default function Home() {
+  const { t } = useTranslation();
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [slides, setSlides] = useState<Slide[]>([]);
-  const [aboutData, setAboutData] = useState<AboutData | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Fetch carousel data
-  useEffect(() => {
-    const fetchCarouselData = async () => {
-      try {
-        const carouselData = await CarouselService.getCarouselSlides();
-        setSlides(carouselData);
-      } catch (error) {
-        console.error('Error fetching carousel data:', error);
-        // Fallback to empty array or default data
-        setSlides([]);
+  // Create slides with translations
+  const slides: Slide[] = [
+    {
+      id: 1,
+      title: t('home.hero.title1'),
+      subtitle: t('home.hero.subtitle1'),
+      description: t('home.hero.description1'),
+      bgColor: "from-blue-600 to-blue-800",
+      textColor: "text-white",
+      buttonText: t('common.learnMore'),
+      buttonLink: "/services"
+    },
+    {
+      id: 2,
+      title: t('home.hero.title2'),
+      subtitle: t('home.hero.subtitle2'),
+      description: t('home.hero.description2'),
+      bgColor: "from-green-600 to-green-800",
+      textColor: "text-white",
+      buttonText: t('common.learnMore'),
+      buttonLink: "/services/logistic/customs-clearance"
+    },
+    {
+      id: 3,
+      title: t('home.hero.title3'),
+      subtitle: t('home.hero.subtitle3'),
+      description: t('home.hero.description3'),
+      bgColor: "from-orange-600 to-orange-800",
+      textColor: "text-white",
+      buttonText: t('common.viewDetails'),
+      buttonLink: "/services/logistic/warehouse"
+    },
+    {
+      id: 4,
+      title: t('home.hero.title4'),
+      subtitle: t('home.hero.subtitle4'),
+      description: t('home.hero.description4'),
+      bgColor: "from-purple-600 to-purple-800",
+      textColor: "text-white",
+      buttonText: t('common.getQuote'),
+      buttonLink: "/services/logistic/international-freight-forwarding"
+    }
+  ];
+
+  // Create about data with translations
+  const aboutData: AboutData = {
+    title: t('home.about.title'),
+    description: t('home.about.description'),
+    description2: t('home.about.description2'),
+    stats: [
+      { number: "8+", label: t('home.about.stats.experience') },
+      { number: "50+", label: t('home.about.stats.countries') },
+      { number: "1000+", label: t('home.about.stats.clients') }
+    ],
+    features: [
+      {
+        title: t('home.about.features.globalNetwork'),
+        description: t('home.about.features.globalNetworkDesc'),
+        icon: "globe"
+      },
+      {
+        title: t('home.about.features.support247'),
+        description: t('home.about.features.support247Desc'),
+        icon: "clock"
+      },
+      {
+        title: t('home.about.features.advancedTech'),
+        description: t('home.about.features.advancedTechDesc'),
+        icon: "chip"
       }
-    };
+    ]
+  };
 
-    fetchCarouselData();
-  }, []);
-
-  // Fetch about section data
   useEffect(() => {
-    const fetchAboutData = async () => {
-      try {
-        const about = await AboutService.getAboutData();
-        setAboutData(about);
-      } catch (error) {
-        console.error('Error fetching about data:', error);
-        setAboutData(null);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchAboutData();
+    // Simulate loading
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -202,7 +146,7 @@ export default function Home() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading...</p>
+          <p className="text-gray-600">{t('common.loading')}</p>
         </div>
       </div>
     );
@@ -292,7 +236,7 @@ export default function Home() {
                             href="/lien-he" 
                             className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-gray-900 transition-colors duration-300 inline-flex items-center justify-center"
                           >
-                            Get Quote
+                            {t('common.getQuote')}
                           </a>
                         </motion.div>
                       </motion.div>
@@ -346,69 +290,71 @@ export default function Home() {
         )}
 
         {/* About Section */}
-        {aboutData && (
-          <section className="py-20 bg-white">
-            <div className="container mx-auto px-6">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <motion.div
-                  initial={{ opacity: 0, x: -50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8 }}
-                  viewport={{ once: true }}
-                >
-                  <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                    About <span className="text-blue-600">{aboutData.title}</span>
-                  </h2>
-                  <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                    {aboutData.description}
-                  </p>
-                  <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                    {aboutData.description2}
-                  </p>
-                  <div className="grid grid-cols-3 gap-6">
-                    {aboutData.stats.map((stat, index) => (
-                      <div key={index} className="text-center">
-                        <div className="text-3xl font-bold text-blue-600 mb-2">{stat.number}</div>
-                        <div className="text-sm text-gray-600">{stat.label}</div>
+        <section className="py-20 bg-white">
+          <div className="container mx-auto px-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+              >
+                <h2 className="text-4xl font-bold text-gray-900 mb-6">
+                  {aboutData.title}
+                </h2>
+                <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+                  {aboutData.description}
+                </p>
+                <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                  {aboutData.description2}
+                </p>
+                <div className="grid grid-cols-3 gap-6">
+                  {aboutData.stats.map((stat, index) => (
+                    <div key={index} className="text-center">
+                      <div className="text-3xl font-bold text-blue-600 mb-2">{stat.number}</div>
+                      <div className="text-sm text-gray-600">{stat.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+                className="relative"
+              >
+                <div className="bg-gradient-to-br from-blue-600 to-blue-800 rounded-lg p-8 text-white">
+                  <h3 className="text-2xl font-bold mb-4">Why Choose Us?</h3>
+                  <div className="space-y-4">
+                    {aboutData.features.map((feature, index) => (
+                      <div key={index} className="flex items-start space-x-3">
+                        <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                          </svg>
+                        </div>
+                        <div>
+                          <h4 className="font-semibold">{feature.title}</h4>
+                          <p className="text-sm opacity-90">{feature.description}</p>
+                        </div>
                       </div>
                     ))}
                   </div>
-                </motion.div>
-                
-                <motion.div
-                  initial={{ opacity: 0, x: 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8 }}
-                  viewport={{ once: true }}
-                  className="relative"
-                >
-                  <div className="bg-gradient-to-br from-blue-600 to-blue-800 rounded-lg p-8 text-white">
-                    <h3 className="text-2xl font-bold mb-4">Why Choose Us?</h3>
-                    <div className="space-y-4">
-                      {aboutData.features.map((feature, index) => (
-                        <div key={index} className="flex items-start space-x-3">
-                          <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                          </div>
-                          <div>
-                            <h4 className="font-semibold">{feature.title}</h4>
-                            <p className="text-sm opacity-90">{feature.description}</p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
+                </div>
+              </motion.div>
             </div>
-          </section>
-        )}
+          </div>
+        </section>
 
         {/* Services Section */}
         <OurServices />
+        
+        {/* News Section */}
         <NewsHome />
+        
+        {/* Partners Section */}
         <Partners />
       </main>
       <Footer />

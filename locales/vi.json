@@ -1,0 +1,88 @@
+{
+  "nav": {
+    "home": "Trang chủ",
+    "about": "Giới thiệu",
+    "services": "Dịch vụ",
+    "news": "Tin tức",
+    "library": "Thư viện",
+    "job": "Tuyển dụng",
+    "contact": "Liên hệ"
+  },
+  "about": {
+    "aboutUs": "Về chúng tôi",
+    "meeting": "Cuộc họp",
+    "visionMission": "Tầm nhìn - Sứ mệnh",
+    "coreValues": "Giá trị cốt lõi",
+    "codeConduct": "Quy tắc đạo đức kinh doanh",
+    "tradingConditions": "Điều kiện giao dịch chuẩn"
+  },
+  "services": {
+    "customsClearance": "Thủ tục hải quan",
+    "warehouse": "Kho bãi",
+    "inlandHaulage": "Vận chuyển nội địa",
+    "temperatureControlled": "Vận chuyển kiểm soát nhiệt độ",
+    "internationalFreight": "Vận chuyển hàng hóa quốc tế",
+    "projectCargoes": "Hàng dự án"
+  },
+  "library": {
+    "share": "Chia sẻ",
+    "legalDocuments": "Tài liệu pháp lý",
+    "usefulWebsites": "Website hữu ích",
+    "referenceDocuments": "Tài liệu tham khảo CV, Email, Documents",
+    "qa": "Hỏi đáp"
+  },
+  "common": {
+    "learnMore": "Tìm hiểu thêm",
+    "getQuote": "Nhận báo giá",
+    "download": "Tải xuống",
+    "viewDetails": "Xem chi tiết",
+    "contactUs": "Liên hệ chúng tôi",
+    "loading": "Đang tải...",
+    "readMore": "Đọc thêm"
+  },
+  "home": {
+    "hero": {
+      "title1": "Giải pháp Logistics Chuyên nghiệp",
+      "subtitle1": "Phủ sóng toàn cầu, Chuyên môn địa phương",
+      "description1": "Chúng tôi cung cấp dịch vụ logistics toàn diện với phạm vi toàn cầu, đảm bảo hàng hóa của bạn đến đích an toàn và hiệu quả.",
+      "title2": "Dịch vụ Thủ tục Hải quan",
+      "subtitle2": "Xử lý Nhanh chóng & Đáng tin cậy",
+      "description2": "Dịch vụ thủ tục hải quan chuyên nghiệp để tối ưu hóa hoạt động xuất nhập khẩu và giảm thiểu chậm trễ.",
+      "title3": "Kho bãi & Phân phối",
+      "subtitle3": "Giải pháp Lưu trữ Chiến lược",
+      "description3": "Cơ sở kho bãi hiện đại với hệ thống quản lý kho hàng tiên tiến để lưu trữ và phân phối tối ưu.",
+      "title4": "Vận chuyển Hàng hóa Quốc tế",
+      "subtitle4": "Vận chuyển Toàn cầu Liền mạch",
+      "description4": "Giải pháp vận chuyển hàng hóa end-to-end kết nối doanh nghiệp trên các lục địa với các tùy chọn vận chuyển đáng tin cậy và tiết kiệm chi phí."
+    },
+    "about": {
+      "title": "Về KTO Logistics",
+      "description": "Được thành lập vào năm 2015, Công ty cổ phần Giao nhận KTO (KTO Logistics., JSC) nay là một trong những doanh nghiệp cung cấp dịch vụ logistics tổng hợp hàng đầu khu vực, với đội ngũ chuyên gia logistics có kiến thức và chuyên môn cao.",
+      "description2": "Chúng tôi liên tục cải tiến để đưa đến cho khách hàng đa dạng, tổng hợp các giải pháp logistics trọn gói giúp đáp ứng các nhu cầu ngày càng phức tạp của khách hàng, cả ở Việt Nam và trên toàn thế giới.",
+      "stats": {
+        "experience": "Năm Kinh Nghiệm",
+        "countries": "Quốc Gia Phục Vụ",
+        "clients": "Khách Hàng Hài Lòng"
+      },
+      "features": {
+        "globalNetwork": "Mạng Lưới Toàn Cầu",
+        "globalNetworkDesc": "Phủ sóng rộng khắp thế giới với các đối tác chiến lược",
+        "support247": "Hỗ Trợ 24/7",
+        "support247Desc": "Dịch vụ khách hàng và theo dõi hàng hóa suốt ngày đêm",
+        "advancedTech": "Công Nghệ Tiên Tiến",
+        "advancedTechDesc": "Hệ thống quản lý logistics hiện đại và sáng tạo"
+      }
+    }
+  },
+  "footer": {
+    "company": "Công ty",
+    "services": "Dịch vụ",
+    "support": "Hỗ trợ",
+    "contact": "Liên hệ",
+    "address": "Địa chỉ",
+    "phone": "Điện thoại",
+    "email": "Email",
+    "followUs": "Theo dõi chúng tôi",
+    "allRightsReserved": "Tất cả quyền được bảo lưu"
+  }
+} 

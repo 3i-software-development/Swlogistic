@@ -44,44 +44,24 @@ const NavTop = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const getLangShort = (code: string) => {
-    switch (code) {
-      case "en_US":
-        return "EN";
-      case "vi_VN":
-        return "VI";
-      case "zh_CN":
-        return "CN";
-      default:
-        return "EN";
-    }
-  };
-
   return (
-    <div className="bg-white text-gray-800 py-4 shadow-sm border-b-8 border-gray-200">
-      {/* Top border line */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gray-200"></div>
-      
+    <div className="bg-white text-gray-800 py-4 shadow-sm border-b-8 border-gray-200 ">
       <div className="container mx-auto px-6 flex items-center justify-between">
         {/* Logo Section - Left */}
         <div className="flex items-center">
-          <div className="flex items-center">
-            {/* Logo Image */}
-            <div className="w-32 h-16 mr-3">
-              <Image
-                src={logo}
-                width={128}
-                height={64}
-                alt="Logo"
-                className="w-full h-full object-contain"
-              />
-            </div>
+          <div className="w-32 h-16 mr-3">
+            <Image
+              src={logo}
+              width={128}
+              height={64}
+              alt="Logo"
+              className="w-full h-full object-contain"
+            />
           </div>
         </div>
 
-
         {/* Navigation Links - Center */}
-        <nav className="hidden mt-8 lg:flex items-center space-x-8">
+        <nav className="hidden lg:flex items-center space-x-8 mt-8">
           <Link href="/" className="text-[#0088cc] hover:text-yellow-500 transition-colors text-[24px] font-normal font-roboto-condensed">
             Home
           </Link>
@@ -143,16 +123,8 @@ const NavTop = () => {
           </Link>
         </nav>
 
-        {/* Right Side - Contact Button, Language, Search */}
-        <div className="flex items-center space-x-4 mt-8 ">
-          {/* Contact Button */}
-          {/* <Link 
-            href="/contact" 
-            className="bg-yellow-500 text-gray-800 px-6 py-2 rounded-lg font-semibold hover:bg-yellow-400 transition-colors duration-200 text-sm"
-          >
-            CONTACT
-          </Link> */}
-
+        {/* Right Side - Language Selector and Search */}
+        <div className="flex items-center space-x-4 mt-8">
           {/* Language Selector */}
           <div className="relative" ref={dropdownRef}>
             <button
@@ -196,12 +168,13 @@ const NavTop = () => {
           </div>
 
           {/* Search Icon */}
-          <button className="text-gray-800 hover:text-yellow-500 transition-colors ">
+          <button className="text-gray-800 hover:text-yellow-500 transition-colors">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </button>
         </div>
+
         {/* Contact Information - Center */}
         <div className="hidden lg:flex items-center space-x-6 mt-8">
           <div className="flex items-center space-x-2">
