@@ -2,10 +2,37 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import Footer from "@/components/Footer/Footer";
 import OurServices from "@/components/Services/OurService";
 import New from "@/components/News/New";
 import Partners from "@/components/Partners/Partners";
+
+// Import images from Asset folder
+import productionLogistics from "@/Asset/image/Production_Logistics_Services.jpg";
+import inlineImages from "@/Asset/image/inline-images-800x450-2.webp";
+import nganhLogistic from "@/Asset/image/Nganh-logistic-la-gi.webp";
+import image2 from "@/Asset/image/image-2-1024x666.jpeg";
+
+// Define types for better TypeScript support
+type Slide = {
+  id: number;
+  title: string;
+  subtitle: string;
+  description: string;
+  bgColor: string;
+  textColor: string;
+  buttonText: string;
+  buttonLink: string;
+};
+
+type AboutData = {
+  title: string;
+  description: string;
+  description2: string;
+  stats: { number: string; label: string; }[];
+  features: { title: string; description: string; icon: string; }[];
+};
 
 // Service for fetching carousel data
 const CarouselService = {
@@ -23,7 +50,6 @@ const CarouselService = {
         description: "We provide comprehensive logistics services with worldwide coverage, ensuring your cargo reaches its destination safely and efficiently.",
         bgColor: "from-blue-600 to-blue-800",
         textColor: "text-white",
-        image: "/images/slide1.jpg",
         buttonText: "Our Services",
         buttonLink: "/services"
       },
@@ -34,7 +60,6 @@ const CarouselService = {
         description: "Expert customs clearance services to streamline your import/export operations and reduce delays.",
         bgColor: "from-green-600 to-green-800",
         textColor: "text-white",
-        image: "/images/slide2.jpg",
         buttonText: "Learn More",
         buttonLink: "/services/logistic/customs-clearance"
       },
@@ -45,9 +70,18 @@ const CarouselService = {
         description: "Modern warehouse facilities with advanced inventory management systems for optimal storage and distribution.",
         bgColor: "from-orange-600 to-orange-800",
         textColor: "text-white",
-        image: "/images/slide3.jpg",
         buttonText: "View Facilities",
         buttonLink: "/services/logistic/warehouse"
+      },
+      {
+        id: 4,
+        title: "International Freight Forwarding",
+        subtitle: "Seamless Global Transportation",
+        description: "End-to-end freight forwarding solutions connecting businesses across continents with reliable and cost-effective shipping options.",
+        bgColor: "from-purple-600 to-purple-800",
+        textColor: "text-white",
+        buttonText: "Get Quote",
+        buttonLink: "/services/logistic/international-freight-forwarding"
       }
     ];
   },
@@ -71,32 +105,32 @@ const CarouselService = {
 
 // Service for fetching about section data
 const AboutService = {
-  async getAboutData() {
+  async getAboutData(): Promise<AboutData> {
     await new Promise(resolve => setTimeout(resolve, 300));
     
     return {
       title: "KTO Logistics",
-      description: "We are a leading logistics company providing comprehensive transportation and supply chain solutions. With years of experience and a global network, we help businesses optimize their logistics operations.",
-      description2: "Our commitment to excellence, reliability, and customer satisfaction has made us a trusted partner for companies worldwide. We continuously invest in technology and infrastructure to deliver innovative solutions that meet the evolving needs of our clients.",
+      description: "Được thành lập vào năm 2015, Công ty cổ phần Giao nhận KTO (KTO Logistics., JSC) nay là một trong những doanh nghiệp cung cấp dịch vụ logistics tổng hợp hàng đầu khu vực, với đội ngũ chuyên gia logistics có kiến thức và chuyên môn cao.",
+      description2: "Chúng tôi liên tục cải tiến để đưa đến cho khách hàng đa dạng, tổng hợp các giải pháp logistics trọn gói giúp đáp ứng các nhu cầu ngày càng phức tạp của khách hàng, cả ở Việt Nam và trên toàn thế giới. Với tư duy toàn cầu và triết lý kinh doanh lấy khách hàng làm trọng tâm phục vụ, kết hợp với chuyên môn và những sáng kiến cải tiến công nghệ tân tiến, chúng tôi luôn cải tiến chất lượng dịch vụ để vượt xa sự mong đợi của khách hàng, vì sự phát triển và thành công của khách hàng cũng như của chính chúng tôi.",
       stats: [
-        { number: "15+", label: "Years Experience" },
-        { number: "50+", label: "Countries Served" },
-        { number: "1000+", label: "Happy Clients" }
+        { number: "8+", label: "Năm Kinh Nghiệm" },
+        { number: "50+", label: "Quốc Gia Phục Vụ" },
+        { number: "1000+", label: "Khách Hàng Hài Lòng" }
       ],
       features: [
         {
-          title: "Global Network",
-          description: "Extensive worldwide coverage and partnerships",
+          title: "Mạng Lưới Toàn Cầu",
+          description: "Phủ sóng rộng khắp thế giới với các đối tác chiến lược",
           icon: "globe"
         },
         {
-          title: "24/7 Support",
-          description: "Round-the-clock customer service and tracking",
+          title: "Hỗ Trợ 24/7",
+          description: "Dịch vụ khách hàng và theo dõi hàng hóa suốt ngày đêm",
           icon: "clock"
         },
         {
-          title: "Advanced Technology",
-          description: "State-of-the-art logistics management systems",
+          title: "Công Nghệ Tiên Tiến",
+          description: "Hệ thống quản lý logistics hiện đại và sáng tạo",
           icon: "chip"
         }
       ]
@@ -106,8 +140,8 @@ const AboutService = {
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [slides, setSlides] = useState([]);
-  const [aboutData, setAboutData] = useState(null);
+  const [slides, setSlides] = useState<Slide[]>([]);
+  const [aboutData, setAboutData] = useState<AboutData | null>(null);
   const [loading, setLoading] = useState(true);
 
   // Fetch carousel data
@@ -187,18 +221,21 @@ export default function Home() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5 }}
-                className={`absolute inset-0 bg-gradient-to-r ${slides[currentSlide].bgColor}`}
+                className="absolute inset-0"
               >
-                {/* Background Pattern */}
-                <div className="absolute inset-0 opacity-10">
-                  <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-                    <defs>
-                      <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
-                        <path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" strokeWidth="0.5"/>
-                      </pattern>
-                    </defs>
-                    <rect width="100" height="100" fill="url(#grid)" />
-                  </svg>
+                {/* Background Image */}
+                <div className="absolute inset-0">
+                  <Image
+                    src={currentSlide === 0 ? productionLogistics : 
+                         currentSlide === 1 ? inlineImages :
+                         currentSlide === 2 ? nganhLogistic : image2}
+                    alt={slides[currentSlide].title}
+                    fill
+                    className="object-cover"
+                    priority={currentSlide === 0}
+                  />
+                  {/* Dark overlay for better text readability */}
+                  <div className="absolute inset-0 bg-black/40"></div>
                 </div>
 
                 {/* Content */}
@@ -260,48 +297,14 @@ export default function Home() {
                         </motion.div>
                       </motion.div>
 
-                      {/* Illustration */}
+                      {/* Right side - Empty for now, can add additional content later */}
                       <motion.div
                         initial={{ opacity: 0, x: 50 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8, delay: 0.3 }}
-                        className="relative"
+                        className="relative hidden lg:block"
                       >
-                        <div className="relative w-full h-96 lg:h-[500px] flex items-center justify-center">
-                          {/* Abstract Shapes */}
-                          <div className="absolute inset-0">
-                            <div className="absolute top-10 left-10 w-32 h-32 bg-white/20 rounded-full blur-xl animate-pulse"></div>
-                            <div className="absolute top-20 right-20 w-24 h-24 bg-white/20 rounded-full blur-lg animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-                            <div className="absolute bottom-20 left-20 w-40 h-40 bg-white/10 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-                          </div>
-                          
-                          {/* Main Illustration */}
-                          <div className="relative z-10">
-                            <svg className="w-full h-full max-w-md" viewBox="0 0 400 300" fill="none">
-                              {/* Container Ship */}
-                              <rect x="50" y="120" width="200" height="80" fill="white" rx="10" opacity="0.9"/>
-                              <rect x="250" y="140" width="80" height="60" fill="white" rx="5" opacity="0.9"/>
-                              <rect x="260" y="150" width="60" height="30" fill="currentColor" rx="3" opacity="0.7"/>
-                              <rect x="70" y="130" width="160" height="40" fill="currentColor" rx="5" opacity="0.7"/>
-                              
-                              {/* Containers */}
-                              <rect x="120" y="320" width="40" height="30" fill="white" opacity="0.8"/>
-                              <rect x="170" y="320" width="40" height="30" fill="white" opacity="0.8"/>
-                              <rect x="220" y="320" width="40" height="30" fill="white" opacity="0.8"/>
-                              <rect x="270" y="320" width="40" height="30" fill="white" opacity="0.8"/>
-                              
-                              {/* Wheels */}
-                              <circle cx="100" cy="220" r="25" fill="white" opacity="0.6"/>
-                              <circle cx="100" cy="220" r="15" fill="currentColor" opacity="0.4"/>
-                              <circle cx="300" cy="220" r="25" fill="white" opacity="0.6"/>
-                              <circle cx="300" cy="220" r="15" fill="currentColor" opacity="0.4"/>
-                              
-                              {/* Lights */}
-                              <circle cx="330" cy="160" r="8" fill="white" opacity="0.8"/>
-                              <circle cx="330" cy="180" r="8" fill="white" opacity="0.8"/>
-                            </svg>
-                          </div>
-                        </div>
+                        {/* This space can be used for additional content or kept empty */}
                       </motion.div>
                     </div>
                   </div>

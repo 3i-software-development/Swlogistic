@@ -5,10 +5,10 @@ import StoreProvider from "@/Redux/StoreProvider";
 import NavTop from "@/components/Header/NarTop";
 import BottomNav from "@/components/Header/BottomNav";
 
-const siteName = "Paris Logistics";
-const siteUrl = "https://parislogistics.com.vn/";
+const siteName = "KTO Logistics";
+const siteUrl = "https://ktologistics.vn/";
 const description =
-  "Paris Logistics - Professional logistics solutions with global reach. We provide comprehensive transportation and logistics services.";
+  "KTO Logistics - Professional logistics solutions with global reach. We provide comprehensive transportation and logistics services.";
 const keywords = [
   "logistics",
   "transportation",
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
   },
   authors: [
     {
-      name: "Paris Logistics",
+      name: "KTO Logistics",
       url: siteUrl,
     },
   ],

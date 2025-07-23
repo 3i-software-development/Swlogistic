@@ -31,63 +31,49 @@ export default function GioiThieu() {
                 
                 <div className="space-y-6 text-gray-700 leading-relaxed">
                   <p>
-                    Paris Logistics is one of the NVOCC companies. With an extensive network throughout Asia and America, 
-                    we make a strong commitment to providing service excellence to our worldwide customers.
+                    Được thành lập vào năm 2015, Công ty cổ phần Giao nhận KTO (KTO Logistics., JSC) nay là một trong những doanh nghiệp cung cấp dịch vụ logistics tổng hợp hàng đầu khu vực, với đội ngũ chuyên gia logistics có kiến thức và chuyên môn cao.
                   </p>
                   
                   <p>
-                    Paris Logistics' establishment is a 100% independent and Vietnamese-owned company. 
-                    We consist of experienced teams in transportation. Our target is to forward the satisfaction 
-                    and utilities for our partners and customers.
+                    Chúng tôi liên tục cải tiến để đưa đến cho khách hàng đa dạng, tổng hợp các giải pháp logistics trọn gói giúp đáp ứng các nhu cầu ngày càng phức tạp của khách hàng, cả ở Việt Nam và trên toàn thế giới. Với tư duy toàn cầu và triết lý kinh doanh lấy khách hàng làm trọng tâm phục vụ, kết hợp với chuyên môn và những sáng kiến cải tiến công nghệ tân tiến, chúng tôi luôn cải tiến chất lượng dịch vụ để vượt xa sự mong đợi của khách hàng, vì sự phát triển và thành công của khách hàng cũng như của chính chúng tôi.
                   </p>
                 </div>
               </div>
 
-              {/* Routings Section */}
+              {/* Services Section */}
               <div className="mb-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Routings</h2>
-                <p className="text-gray-700 mb-4">We have the routings as below:</p>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Dịch Vụ Chính</h2>
+                <p className="text-gray-700 mb-4">Chúng tôi cung cấp các dịch vụ logistics toàn diện:</p>
                 
-                <div className="space-y-4 text-gray-700">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <p className="font-medium mb-2">Ho Chi Minh | Hai Phong to:</p>
-                    <p className="text-sm">
-                      Phnompenh | Sihanoukville | Singapore | Bangkok | Laem Chabang | Port Klang | Penang | Manila | 
-                      Jakarta | Belawan | Yangon | Hongkong | Shanghai | Inchone | Busan | Nhava sheva | Chennai | 
-                      Mundra | Pipavav | Kolkata | ICD Birgunj | Jebel Ali | Ajman | Abu Dhabi | Umm Al Quaiwain | 
-                      Shajah | North Um Qasr | South Um Qasr | Shuaiba | Shuwaik | Soha | Hamad | Damman | Riyahdh | 
-                      Sohkna | Aqaba | Srilanka | Chittagong | Dhaka
-                    </p>
+                    <h3 className="font-semibold text-blue-600 mb-2">Customs Clearance</h3>
+                    <p className="text-sm text-gray-600">Thủ tục hải quan nhanh chóng và chuyên nghiệp</p>
                   </div>
                   
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <p className="font-medium mb-2">Da Nang to:</p>
-                    <p className="text-sm">
-                      Phnompenh | Singapore | Bangkok | Laem Chabang | Port Klang | Hongkong | Manila
-                    </p>
+                    <h3 className="font-semibold text-blue-600 mb-2">Warehouse</h3>
+                    <p className="text-sm text-gray-600">Kho bãi hiện đại với hệ thống quản lý tiên tiến</p>
                   </div>
                   
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <p className="font-medium mb-2">Ho Chi Minh | Hai Phong to Europe:</p>
-                    <p className="text-sm">
-                      Rotterdam | Antwerp | Hamburg | Piraeus | Valencia | Algeciras | Bremen | Felixstowe | 
-                      Gioia Tauro | Barcelona
-                    </p>
+                    <h3 className="font-semibold text-blue-600 mb-2">Inland Haulage</h3>
+                    <p className="text-sm text-gray-600">Vận chuyển nội địa an toàn và đúng hẹn</p>
                   </div>
                   
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <p className="font-medium mb-2">Ho Chi Minh | Hai Phong to Africa:</p>
-                    <p className="text-sm">
-                      Dakar | Freetown | Capetown | Port Elizebeth | Port Louis | Mombasa | Wavis Bay
-                    </p>
+                    <h3 className="font-semibold text-blue-600 mb-2">International Freight Forwarding</h3>
+                    <p className="text-sm text-gray-600">Vận chuyển quốc tế với mạng lưới toàn cầu</p>
                   </div>
                   
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <p className="font-medium mb-2">Ho Chi Minh | Hai Phong to America:</p>
-                    <p className="text-sm">
-                      Seattle | Portland | Oakland | Los Angeles | Long Beach | Houston | New Orleans | Miami | 
-                      Norfolk | New York | Chicago
-                    </p>
+                    <h3 className="font-semibold text-blue-600 mb-2">Temperature-Controlled Transport</h3>
+                    <p className="text-sm text-gray-600">Vận chuyển hàng hóa cần kiểm soát nhiệt độ</p>
+                  </div>
+                  
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    <h3 className="font-semibold text-blue-600 mb-2">Project Cargoes</h3>
+                    <p className="text-sm text-gray-600">Vận chuyển hàng dự án đặc biệt</p>
                   </div>
                 </div>
               </div>
@@ -95,29 +81,29 @@ export default function GioiThieu() {
               {/* Call to Action */}
               <div className="mb-8">
                 <p className="text-gray-700 mb-4">
-                  If you have any requirements for the shipment, don't hesitate to contact us.
+                  Nếu bạn có nhu cầu vận chuyển hàng hóa, đừng ngần ngại liên hệ với chúng tôi.
                 </p>
                 <p className="text-gray-700 mb-6">
-                  We look forward to a successful working relationship with your company in the future.
+                  Chúng tôi mong muốn thiết lập mối quan hệ hợp tác thành công với quý công ty trong tương lai.
                 </p>
               </div>
 
               {/* Contact Information */}
               <div className="bg-gray-50 p-6 rounded-lg">
-                <p className="text-gray-700 mb-4">Thanks & Best Regard!</p>
+                <p className="text-gray-700 mb-4">Trân trọng!</p>
                 <div className="space-y-2 text-gray-700">
-                  <p className="font-semibold">Vo Thien Minh (Mr. Kayden) – Manager</p>
-                  <p>Mobile: <span className="text-blue-600">0909.40.0990</span></p>
-                  <p>Email: <span className="text-blue-600">paris@parislogistics.com.vn</span></p>
+                  <p className="font-semibold">KTO Logistics., JSC</p>
+                  <p>Hotline: <span className="text-blue-600">0909.40.0990</span></p>
+                  <p>Email: <span className="text-blue-600">info@ktologistics.com.vn</span></p>
                 </div>
                 
                 <div className="mt-6 pt-6 border-t border-gray-300">
-                  <p className="font-bold text-gray-900 mb-2">PARIS LOGISTICS CO., LTD</p>
+                  <p className="font-bold text-gray-900 mb-2">CÔNG TY CỔ PHẦN GIAO NHẬN KTO</p>
                   <div className="space-y-1 text-gray-700">
-                    <p>Address: 60 Nguyen Van Thu, Da Kao Ward, Dist 1, Hochiminh City, Vietnam</p>
-                    <p>Tel/Fax: <span className="text-blue-600">0282.246.0111</span></p>
+                    <p>Địa chỉ: 60 Nguyễn Văn Thủ, Phường Đakao, Quận 1, TP. Hồ Chí Minh</p>
+                    <p>Điện thoại: <span className="text-blue-600">028.628.74042</span></p>
                     <p>Hotline: <span className="text-blue-600">0909.40.0990</span></p>
-                    <p>Website: <span className="text-blue-600">www.parislogistics.com.vn</span></p>
+                    <p>Website: <span className="text-blue-600">www.ktologistics.com.vn</span></p>
                   </div>
                 </div>
               </div>
@@ -143,13 +129,13 @@ export default function GioiThieu() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold">PARIS LOGISTICS</h3>
+                  <h3 className="text-lg font-bold">KTO LOGISTICS</h3>
                   <p className="text-sm text-blue-200">PROFESSIONAL & LOGICAL</p>
                 </div>
               </div>
 
               {/* Company Name */}
-              <h4 className="text-lg font-bold mb-6">CÔNG TY TNHH PARIS LOGISTICS</h4>
+              <h4 className="text-lg font-bold mb-6">CÔNG TY CỔ PHẦN GIAO NHẬN KTO</h4>
 
               {/* Contact Details */}
               <div className="space-y-4">
@@ -159,7 +145,7 @@ export default function GioiThieu() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
                   <p className="text-sm">
-                    60 Nguyễn Văn Thủ, Phường Đakao Quận 1, Thành phố Hồ Chí Minh, Việt Nam
+                    60 Nguyễn Văn Thủ, Phường Đakao, Quận 1, TP. Hồ Chí Minh, Việt Nam
                   </p>
                 </div>
 
@@ -167,7 +153,7 @@ export default function GioiThieu() {
                   <svg className="w-5 h-5 text-blue-200 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
-                  <p className="text-sm">Phone: <span className="font-semibold">028.628.74042</span></p>
+                  <p className="text-sm">Điện thoại: <span className="font-semibold">028.628.74042</span></p>
                 </div>
 
                 <div className="flex items-center space-x-3">
@@ -181,14 +167,14 @@ export default function GioiThieu() {
                   <svg className="w-5 h-5 text-blue-200 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
-                  <p className="text-sm">Email: <span className="font-semibold">parislogistics@parislogistics.com.vn</span></p>
+                  <p className="text-sm">Email: <span className="font-semibold">info@ktologistics.com.vn</span></p>
                 </div>
 
                 <div className="flex items-center space-x-3">
                   <svg className="w-5 h-5 text-blue-200 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9m0 9c-5 0-9-4-9-9s4-9 9-9" />
                   </svg>
-                  <p className="text-sm">Website: <span className="font-semibold">http://www.parislogistics.com.vn</span></p>
+                  <p className="text-sm">Website: <span className="font-semibold">www.ktologistics.com.vn</span></p>
                 </div>
               </div>
             </motion.div>
