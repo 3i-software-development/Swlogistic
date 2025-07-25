@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 // Define supported languages
-export type Language = 'vi' | 'en' | 'zh';
+export type Language = 'vi' | 'en';
 
 // Translation data type - support nested objects
 export type TranslationData = {
@@ -13,24 +13,21 @@ export const useTranslation = () => {
   const [currentLanguage, setCurrentLanguage] = useState<Language>('vi');
   const [translations, setTranslations] = useState<{ [key in Language]: TranslationData }>({
     vi: {},
-    en: {},
-    zh: {}
+    en: {}
   });
 
   // Load translations from JSON files
   useEffect(() => {
     const loadTranslations = async () => {
       try {
-        const [viData, enData, zhData] = await Promise.all([
+        const [viData, enData] = await Promise.all([
           import('@/locales/vi.json'),
-          import('@/locales/en.json'),
-          import('@/locales/zh.json')
+          import('@/locales/en.json')
         ]);
 
         setTranslations({
           vi: viData.default,
-          en: enData.default,
-          zh: zhData.default
+          en: enData.default
         });
       } catch (error) {
         console.error('Error loading translations:', error);
@@ -79,8 +76,7 @@ export const useTranslation = () => {
   // Get available languages
   const getAvailableLanguages = (): { code: Language; name: string; flag: string }[] => [
     { code: 'vi', name: 'Tiếng Việt', flag: '🇻🇳' },
-    { code: 'en', name: 'English', flag: '🇺🇸' },
-    { code: 'zh', name: '中文', flag: '🇨🇳' }
+    { code: 'en', name: 'English', flag: '🇺🇸' }
   ];
 
   return {

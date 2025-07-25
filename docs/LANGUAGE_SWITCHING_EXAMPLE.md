@@ -22,11 +22,6 @@ const MyComponent = () => {
     changeLanguage('vi');
   };
 
-  // Chuyển sang tiếng Trung
-  const switchToChinese = () => {
-    changeLanguage('zh');
-  };
-
   return (
     <div>
       <h1>{t('nav.home')}</h1>
@@ -35,7 +30,6 @@ const MyComponent = () => {
       <div className="space-x-2">
         <button onClick={switchToVietnamese}>Tiếng Việt</button>
         <button onClick={switchToEnglish}>English</button>
-        <button onClick={switchToChinese}>中文</button>
       </div>
     </div>
   );
@@ -56,8 +50,7 @@ const NavTop = () => {
     if (currentLanguageRedux) {
       const languageMap = {
         'vi_VN': 'vi',
-        'en_US': 'en',
-        'zh_CN': 'zh'
+        'en_US': 'en'
       };
       
       const mappedLanguage = languageMap[currentLanguageRedux.code] || 'vi';
@@ -68,14 +61,13 @@ const NavTop = () => {
   }, [currentLanguageRedux, currentLanguage, changeLanguage]);
 
   // Hàm chuyển đổi ngôn ngữ
-  const handleLanguageChange = (language: 'vi' | 'en' | 'zh') => {
+  const handleLanguageChange = (language: 'vi' | 'en') => {
     changeLanguage(language);
     
     // Cập nhật Redux state
     const reverseLanguageMap = {
       'vi': languages[0], // vi_VN
-      'en': languages[1], // en_US
-      'zh': languages[2]  // zh_CN
+      'en': languages[1]  // en_US
     };
     
     const reduxLanguage = reverseLanguageMap[language];
@@ -99,19 +91,18 @@ const NavTop = () => {
 // Chuyển đổi ngôn ngữ
 changeLanguage('en');  // Tiếng Anh
 changeLanguage('vi');  // Tiếng Việt
-changeLanguage('zh');  // Tiếng Trung
 ```
 
 ### 2. `currentLanguage`
 ```tsx
 // Lấy ngôn ngữ hiện tại
-console.log(currentLanguage); // 'vi', 'en', hoặc 'zh'
+console.log(currentLanguage); // 'vi' hoặc 'en'
 ```
 
 ### 3. `t(key, params?)`
 ```tsx
 // Dịch text
-t('nav.home');  // "Trang chủ" / "Home" / "首页"
+t('nav.home');  // "Trang chủ" / "Home"
 
 // Dịch với tham số
 t('welcome.message', { name: 'John' });  // "Xin chào John"
@@ -123,8 +114,7 @@ t('welcome.message', { name: 'John' });  // "Xin chào John"
 const languages = getAvailableLanguages();
 // [
 //   { code: 'vi', name: 'Tiếng Việt', flag: '🇻🇳' },
-//   { code: 'en', name: 'English', flag: '🇺🇸' },
-//   { code: 'zh', name: '中文', flag: '🇨🇳' }
+//   { code: 'en', name: 'English', flag: '🇺🇸' }
 // ]
 ```
 
@@ -147,7 +137,7 @@ const LanguageDemo = () => {
 
   const languages = getAvailableLanguages();
 
-  const handleLanguageSwitch = (lang: 'vi' | 'en' | 'zh') => {
+  const handleLanguageSwitch = (lang: 'vi' | 'en') => {
     changeLanguage(lang);
     setSelectedLang(lang);
   };
@@ -167,7 +157,7 @@ const LanguageDemo = () => {
         {languages.map((lang) => (
           <button
             key={lang.code}
-            onClick={() => handleLanguageSwitch(lang.code as 'vi' | 'en' | 'zh')}
+            onClick={() => handleLanguageSwitch(lang.code as 'vi' | 'en')}
             className={`px-4 py-2 rounded ${
               selectedLang === lang.code 
                 ? 'bg-blue-500 text-white' 

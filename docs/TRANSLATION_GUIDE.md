@@ -15,8 +15,7 @@ Hệ thống đa ngôn ngữ được xây dựng với các thành phần chín
 │   └── useTranslation.ts          # Hook chính
 ├── locales/
 │   ├── vi.json                    # Tiếng Việt
-│   ├── en.json                    # Tiếng Anh
-│   └── zh.json                    # Tiếng Trung
+│   └── en.json                    # Tiếng Anh
 ├── components/
 │   └── LanguageSwitcher.tsx       # Component chuyển đổi ngôn ngữ
 └── docs/
@@ -46,10 +45,10 @@ const MyComponent = () => {
 
 ```tsx
 // Dịch đơn giản
-t('nav.home')  // "Trang chủ" / "Home" / "首页"
+t('nav.home')  // "Trang chủ" / "Home"
 
 // Dịch với tham số
-t('welcome.message', { name: 'John' })  // "Xin chào John" / "Hello John" / "你好 John"
+t('welcome.message', { name: 'John' })  // "Xin chào John" / "Hello John"
 ```
 
 ### 3. Chuyển đổi ngôn ngữ
@@ -62,9 +61,6 @@ changeLanguage('en');
 
 // Chuyển sang tiếng Việt
 changeLanguage('vi');
-
-// Chuyển sang tiếng Trung
-changeLanguage('zh');
 ```
 
 ### 4. Sử dụng LanguageSwitcher component
@@ -153,21 +149,19 @@ Tạo file `locales/ja.json` cho tiếng Nhật:
 Trong `hooks/useTranslation.ts`, thêm ngôn ngữ mới:
 
 ```tsx
-export type Language = 'vi' | 'en' | 'zh' | 'ja';
+export type Language = 'vi' | 'en' | 'ja';
 
 // Trong getAvailableLanguages function
 const getAvailableLanguages = (): { code: Language; name: string; flag: string }[] => [
   { code: 'vi', name: 'Tiếng Việt', flag: '🇻🇳' },
   { code: 'en', name: 'English', flag: '🇺🇸' },
-  { code: 'zh', name: '中文', flag: '🇨🇳' },
   { code: 'ja', name: '日本語', flag: '🇯🇵' }  // Thêm dòng này
 ];
 
 // Trong useEffect, thêm import
-const [viData, enData, zhData, jaData] = await Promise.all([
+const [viData, enData, jaData] = await Promise.all([
   import('@/locales/vi.json'),
   import('@/locales/en.json'),
-  import('@/locales/zh.json'),
   import('@/locales/ja.json')  // Thêm dòng này
 ]);
 ```
@@ -181,7 +175,6 @@ const getFlagEmoji = (code: string) => {
   switch (code) {
     case 'vi': return '🇻🇳';
     case 'en': return '🇺🇸';
-    case 'zh': return '🇨🇳';
     case 'ja': return '🇯🇵';  // Thêm dòng này
     default: return '🇻🇳';
   }
