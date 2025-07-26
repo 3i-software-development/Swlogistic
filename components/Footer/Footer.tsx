@@ -1,6 +1,8 @@
-"use client";
+
+import React from "react";
 
 import { motion } from "framer-motion";
+import BookingForm from "../BookingForm/BookingForm";
 import Link from "next/link";
 import Image from "next/image";
 import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from "react-icons/fa";
@@ -10,6 +12,7 @@ const Footer = () => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+  const [openBooking, setOpenBooking] = React.useState(false);
 
   return (
     <footer className="bg-gray-800 text-gray-300">
@@ -123,6 +126,26 @@ const Footer = () => {
           </h3>
         </motion.div>
       </div>
+
+      {/* Floating Booking Button */}
+      <motion.button
+        className="fixed bottom-24 right-6 w-14 h-14 bg-blue-400 text-white rounded-full shadow-lg hover:bg-blue-700 transition-colors duration-200 z-50 flex items-center justify-center"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        aria-label="Đặt booking"
+        onClick={() => setOpenBooking(true)}
+      >
+        {/* SVG icon calendar/booking */}
+        <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          <rect x="3" y="5" width="18" height="16" rx="2" fill="#fff" stroke="#222"/>
+          <path d="M16 3v4M8 3v4M3 9h18" stroke="#222"/>
+          <rect x="8" y="13" width="3" height="3" rx="1" fill="#222"/>
+          <rect x="13" y="13" width="3" height="3" rx="1" fill="#222"/>
+        </svg>
+      </motion.button>
+
+      {/* BookingForm Popup */}
+      <BookingForm open={openBooking} onClose={() => setOpenBooking(false)} />
 
       {/* Floating Chat Widget */}
       <motion.button
